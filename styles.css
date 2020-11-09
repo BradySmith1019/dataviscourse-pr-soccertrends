@@ -26,3 +26,81 @@
     display: inline-block;
     float: left;
 }
+
+#country-detail {
+    display: inline-block;
+    width: 750px;
+    height: 100px;
+    margin: auto;
+    position: relative;
+    padding-left: 30px;
+}
+
+#country-detail .stat {
+    font-style: bold;
+    display: block;
+    width: 500px;
+}
+
+#country-detail .stats span {
+    font-weight: bold;
+}
+
+#country-detail div.label {
+    font-size: 26px;
+    display: block;
+    width: 100%;
+    padding-top: 10px;
+}
+
+#country-detail div.label span {
+    font-size: 22px;
+    padding-bottom: 15px;
+    font-weight: bold;
+}
+
+#map-chart {
+    height: 450px;
+}
+
+#map-chart svg {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+#map-chart svg {
+    margin: auto;
+}
+
+.countries {
+    fill: #a8a8a8;
+    stroke: #fff;
+    stroke-width: .3px;
+}
+
+.boundary {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 3px;
+}
+
+.stroke {
+    fill: none;
+    stroke: #000;
+    stroke-width: 2px;
+}
+
+.fill {
+    fill: #fff;
+    pointer-events: none;
+}
+
+.graticule {
+    fill: none;
+    stroke: #777;
+    stroke-width: .5px;
+    stroke-opacity: .2;
+    pointer-events: none;
+}
+
