@@ -35,7 +35,7 @@ class Map {
         this.projection = d3.geoWinkel3().scale(140).translate([365, 225]);
         this.nameArray = data.population.map(d => d.geo.toUpperCase());
         this.populationData = data.population;
-        //this.matchesData = data.matches;
+        this.matchesData = data.matches;
         this.updateCountry = updateCountry;
     }
 
@@ -44,23 +44,6 @@ class Map {
      * @param world the json data with the shape of all countries and a string for the activeYear
      */
     async drawMap(world) {
-        //note that projection is global!
-
-        // ******* TODO: PART I *******
-
-        // Draw the background (country outlines; hint: use #map-chart)
-        // Make sure to add a graticule (gridlines) and an outline to the map
-
-        // Hint: assign an id to each country path to make it easier to select afterwards
-        // we suggest you use the variable in the data element's id field to set the id
-
-        // Make sure and give your paths the appropriate class (see the .css selectors at
-        // the top of the provided html file)
-
-        // You need to match the country with the region. This can be done using .map()
-        // We have provided a class structure for the data called CountryData that you should assign the paramters to in your mapping
-
-        //TODO - your code goes here
 
         let geoJson = topojson.feature(world, world.objects.countries);
         console.log(geoJson);
@@ -89,6 +72,7 @@ class Map {
 
         let paths = svg.selectAll("path").data(countriesData);
 
+        let that = this;
         paths.join(
             enter =>
                 enter
@@ -96,11 +80,17 @@ class Map {
                     .attr("d", function(d) {
                         return path(d.geometry);
                     })
-                    .attr("class", "countries")
+                    .attr("class", function(d){
+                        return d.region;
+                    })
                     .attr("id", function(d) {
                         return d.id;
                     })
-                    .on("click", d => this.updateCountry(d.id)),
+                    .on("click", d => this.updateCountry(d.id))
+                    .on("mouseover", function(d) {
+                        that.highlightCountry(d.id);
+                        d3.select(this).append("title").text(d.id);
+                    }),
             update =>
                 update
                     .attr("d", path)
@@ -120,18 +110,66 @@ class Map {
         .datum(go).attr("class", "stroke").attr("d", path);
     }
 
+    highlightCountry(activeCountry) {
+        if (activeCountry != null) {
+            let svg = document.getElementById("map-chart-svg");
+
+            for (let i = 0; i < svg.children.length; i++) {
+                let theRegion = svg.children[i].getAttribute("class");
+                if (theRegion === "path.asia.selected-country") {
+                    theRegion = "asia";
+                }
+                if (theRegion === "path.europe.selected-country") {
+                    theRegion = "europe";
+                }
+                if (theRegion === "path.americas.selected-country") {
+                    theRegion = "americas";
+                }
+                if (theRegion === "path.africa.selected-country") {
+                    theRegion = "africa";
+                }
+                if (svg.children[i].id === activeCountry) {
+                    if (theRegion === "asia") {
+                        let regionFill = "#2d7aad";
+                        svg.children[i].setAttribute("class", "path." + theRegion + ".selected-country");
+                        svg.children[i].setAttribute("fill", regionFill);
+                    }
+
+                    else if (theRegion === "africa") {
+                        let regionFill = "#cc9a04";
+                        svg.children[i].setAttribute("class", "path." + theRegion + ".selected-country");
+                        svg.children[i].setAttribute("fill", regionFill);
+                    }
+
+                    else if (theRegion === "americas") {
+                        let regionFill = "#aaba18";
+                        svg.children[i].setAttribute("class", "path." + theRegion + ".selected-country");
+                        svg.children[i].setAttribute("fill", regionFill);
+                    }
+
+                    else if (theRegion === "europe") {
+                        let regionFill = "#7c0238";
+                        svg.children[i].setAttribute("class", "path." + theRegion + ".selected-country");
+                        svg.children[i].setAttribute("fill", regionFill);
+                    }
+                }
+                else {
+                    svg.children[i].setAttribute("class", theRegion);
+                }
+            }
+        }
+
+        else {
+            this.clearHighlight();
+        }
+    }
+
     /**
      * Highlights the selected conutry and region on mouse click
      * @param activeCountry the country ID of the country to be rendered as selected/highlighted
      */
     updateHighlightClick(activeCountry) {
-        // ******* TODO: PART 3 *******
-        // Assign selected class to the target country and corresponding region
-        // Hint: If you followed our suggestion of using classes to style
-        // the colors and markers for countries/regions, you can use
-        // d3 selection and .classed to set these classes on here.
 
-        //TODO - your code goes here
         if (activeCountry !== null) {
             
             let svg = document.getElementById("map-chart-svg");
@@ -191,15 +229,6 @@ class Map {
      * Clears all highlights
      */
     clearHighlight() {
-        // ******* TODO: PART 3 *******
-        // Clear the map of any colors/markers; You can do this with inline styling or by
-        // defining a class style in styles.css
-
-        // Hint: If you followed our suggestion of using classes to style
-        // the colors and markers for hosts/teams/winners, you can use
-        // d3 selection and .classed to set these classes off here.
-
-        //TODO - your code goes here
 
         let svg = document.getElementById("map-chart-svg");
 

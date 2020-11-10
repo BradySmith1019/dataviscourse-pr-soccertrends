@@ -104,3 +104,54 @@
     pointer-events: none;
 }
 
+.africa {
+    fill: #a8a8a8;
+    stroke: #fff;
+    stroke-width: .3px;
+}
+
+path.africa.selected-country,
+circle.africa.selected-country {
+    fill: #cc9a04;
+    /* stroke: #000000;*/
+}
+
+.asia {
+    fill: #a8a8a8;
+    stroke: #fff;
+    stroke-width: .3px;
+}
+
+path.asia.selected-country,
+circle.asia.selected-country {
+    fill: #2d7aad;
+    /*  stroke-width: 1px;*/
+    /* stroke: #000000;*/
+}
+
+.americas {
+    fill: #a8a8a8;
+    stroke: #fff;
+    stroke-width: .3px;
+}
+
+path.americas.selected-country,
+circle.americas.selected-country {
+    fill: #aaba18;
+    /*  stroke-width: 1px;*/
+    /* stroke: #000000;*/
+}
+
+.europe {
+    fill: #a8a8a8;
+    stroke: #fff;
+    stroke-width: .3px;
+}
+
+path.europe.selected-country,
+circle.europe.selected-country {
+    fill: #7c0238;
+    /*  stroke-width: 1px;*/
+    /* stroke: #000000;*/
+}
+
