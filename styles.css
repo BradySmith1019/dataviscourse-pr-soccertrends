@@ -155,3 +155,43 @@ circle.europe.selected-country {
     /* stroke: #000000;*/
 }
 
+/*
+Grid Container
+*/
+
+.grid-container {
+    display: inline-grid;
+    grid-template-areas: 
+    'topleft topleft topleft topright topright topright'
+    'midleft midleft midleft midright midright midright'
+    'bottomleft bottomleft bottomleft bottomright bottomright bottomright';
+    background-color: white;
+    padding: 10px;
+    position: relative;
+    top: 50px;
+}
+
+.topleft-grid {
+    grid-area: topleft;
+}
+
+.topright-grid {
+    grid-area: topright;
+}
+
+.midleft-grid {
+    grid-area: midleft;
+}
+
+.midright-grid {
+    grid-area: midright;
+}
+
+.bottomleft-grid {
+    grid-area: bottomleft;
+}
+
+.bottomright-grid {
+    grid-area: bottomright;
+}
+

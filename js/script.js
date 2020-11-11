@@ -48,9 +48,9 @@ async function loadFile(file) {
 
 async function loadData() {
     let pop = await loadFile('data/pop.csv');
-    let matches = await loadFile('data/WorldCupMatches(1).csv');
+    let matches = await loadFile('data/WorldCupMatches.csv');
     let players = await loadFile('data/WorldCupPlayers.csv');
-    let cups = await loadFile('data/WorldCups(1).csv');
+    let cups = await loadFile('data/WorldCups.csv');
 
     return {
         'population': pop,

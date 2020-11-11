@@ -65,7 +65,8 @@ class Map {
         let antarcticaGeometry = geoJson.features.find(element => element.id === "ATA");
         countriesData.push(new CountryData("Feature", "ATA", undefined, antarcticaGeometry, "countries"));
 
-        let selectMap = d3.select("#map-chart");
+        let selectMap = d3.select("#body-wrap").classed("grid-container", true)
+        .select("#map-chart").classed("topleft-grid", true);
         let svg = selectMap.append("svg").attr("id", "map-chart-svg").attr("class", "map-chart svg");
         
         let path = d3.geoPath().projection(this.projection);
