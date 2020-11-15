@@ -8,6 +8,11 @@ loadData().then(data => {
     const worldMap = new Map(data, updateCountry);
     const infoBox = new InfoBox(data);
     const lineChart = new LineChart(data);
+    let table = new Table(data.cups);
+
+    let bracket = new Bracket(data);
+    bracket.drawBracket(activeYear);
+
 
     function updateCountry(countryID) {
         this.activeCountry = countryID;

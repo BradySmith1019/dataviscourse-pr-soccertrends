@@ -1,4 +1,4 @@
-Year,Datetime,Stage,Stadium,City,Home Team Name,Home Team Goals,Away Team Goals,Away Team Name,Win conditions,Attendance,Half-time Home Goals,Half-time Away Goals,Referee,Assistant 1,Assistant 2,RoundID,MatchID,Home Team Initials,Away Team Initials
+Year,Datetime,Stage,Stadium,City,HomeTeamName,HomeTeamGoals,AwayTeamGoals,AwayTeamName,Winconditions,Attendance,Half-timeHomeGoals,Half-timeAwayGoals,Referee,Assistant1,Assistant2,RoundID,MatchID,HomeTeamInitials,AwayTeamInitials
 1930,13 Jul 1930 - 15:00 ,Group 1,Pocitos,Montevideo ,France,4,1,Mexico, ,4444,3,0,LOMBARDI Domingo (URU),CRISTOPHE Henry (BEL),REGO Gilberto (BRA),201,1096,FRA,MEX
 1930,15 Jul 1930 - 16:00 ,Group 1,Parque Central,Montevideo ,Argentina,1,0,France, ,23409,0,0,REGO Gilberto (BRA),SAUCEDO Ulises (BOL),RADULESCU Constantin (ROU),201,1085,ARG,FRA
 1930,16 Jul 1930 - 14:45 ,Group 1,Parque Central,Montevideo ,Chile,3,0,Mexico, ,9249,1,0,CRISTOPHE Henry (BEL),APHESTEGUY Martin (URU),LANGENUS Jean (BEL),201,1095,CHI,MEX
@@ -353,7 +353,7 @@ Year,Datetime,Stage,Stadium,City,Home Team Name,Home Team Goals,Away Team Goals,
 1982,22 Jun 1982 - 21:00 ,Group 6,La Rosaleda,Malaga ,Soviet Union,2,2,Scotland, ,45000,0,1,RAINEA Nicolae (ROU),JARGUZ Alojzy (POL),PONNET Alexis (BEL),293,1071,URS,SCO
 1982,23 Jun 1982 - 21:00 ,Group 6,Benito Villamarin,Seville ,Brazil,4,0,New Zealand, ,43000,2,0,MATOVINOVIC Damir (CRO),KLEIN Abraham (ISR),CORVER Charles (NED),293,789,BRA,NZL
 1982,08 Jul 1982 - 17:15 ,Semi-finals,Camp Nou,Barcelona ,Poland,0,2,Italy, ,50000,0,1,CARDELLINO DE SAN VICENTE Juan (URU),SOCHA David (USA),ARISTIZABAL MURCIA Gilberto (COL),295,996,POL,ITA
-1982,08 Jul 1982 - 21:00 ,Semi-finals,Ramon Sanchez Pizjuan,Seville ,Germany FR,3,3,France, win on penalties (5 - 4) ,70000,0,0,CORVER Charles (NED),GALLER Bruno (SUI),VALENTINE Robert (SCO),295,914,FRG,FRA
+1982,08 Jul 1982 - 21:00 ,Semi-finals,Ramon Sanchez Pizjuan,Seville ,Germany FR,3 (5) ,3 (4),France, win on penalties (5 - 4) ,70000,0,0,CORVER Charles (NED),GALLER Bruno (SUI),VALENTINE Robert (SCO),295,914,FRG,FRA
 1982,10 Jul 1982 - 20:00 ,Match for third place,Jose Rico Perez,Alicante ,Poland,3,2,France, ,28000,2,1,GARRIDO Antonio (POR),RUBIO VAZQUEZ Mario (MEX),LACARNE Belaid (ALG),676,921,POL,FRA
 1982,11 Jul 1982 - 20:00 ,Final,Santiago Bernabeu,Madrid ,Italy,3,1,Germany FR, ,90000,0,0,COELHO Arnaldo (BRA),KLEIN Abraham (ISR),CHRISTOV Vojtech (TCH),3475,923,ITA,FRG
 1986,31 May 1986 - 12:00 ,Group A,Estadio Azteca,Mexico City ,Bulgaria,1,1,Italy, ,96000,0,1,FREDRIKSSON Erik (SWE),CODESAL MENDEZ Edgardo (MEX),ROTH Volker (GER),308,459,BUL,ITA
