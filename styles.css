@@ -220,3 +220,32 @@ Grid Container
 .table-text {
     text-align: center;
 }
+
+.bracket-line {
+    stroke: black;
+    stroke-width: 5px;
+}
+
+.bracket-label{
+    font-size: 9pt;
+    font-weight: 1000;
+}
+
+.winning-label{
+    font-size: 20pt;
+    font-weight: 1000;
+}
+
+.bracket-title{
+    font-size: 24pt;
+    font-weight: 1000; 
+}
+
+.left-bracket{
+    text-align: left;
+}
+
+.right-bracket{
+    text-align: right;
+}
+

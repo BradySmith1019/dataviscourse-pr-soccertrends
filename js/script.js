@@ -6,8 +6,11 @@ loadData().then(data => {
 
     console.log(data);
     const worldMap = new Map(data, updateCountry);
-    console.log("before table call");
     let table = new Table(data.cups);
+
+    let bracket = new Bracket(data);
+    bracket.drawBracket(activeYear);
+
 
     function updateCountry(countryID) {
         this.activeCountry = countryID;
