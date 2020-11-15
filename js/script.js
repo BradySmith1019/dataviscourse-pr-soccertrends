@@ -1,15 +1,18 @@
 loadData().then(data => {
 
-    this.activeCountry = null;
-    this.activeYear = 2014;
+    this.activeCountry = 'USA';
+    this.activeYear = '2014';
     let that = this;
 
     console.log(data);
     const worldMap = new Map(data, updateCountry);
+    const infoBox = new InfoBox(data);
+    const lineChart = new LineChart(data);
 
     function updateCountry(countryID) {
         this.activeCountry = countryID;
         worldMap.updateHighlightClick(this.activeCountry);
+        infoBox.updateTextDescription(this.activeCountry, that.activeYear, that.activeYear);
     }
 
     function updateYear(year) {

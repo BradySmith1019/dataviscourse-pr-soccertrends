@@ -155,6 +155,19 @@ circle.europe.selected-country {
     /* stroke: #000000;*/
 }
 
+#country-detail {
+    display: inline-block;
+    width: 750px;
+    height: 100px;
+    margin: auto;
+    position: relative;
+    padding-left: 30px;
+}
+
+.line-chart-x {
+    stroke: rgb(101, 32, 228);
+}
+
 /*
 Grid Container
 */
