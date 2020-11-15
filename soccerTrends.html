@@ -9,6 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.js"></script>
     <script src="js/map.js" async></script>
+    <script src="js/table.js" async></script>
     <script src="js/script.js" async></script>
 </head>
 <body>
@@ -20,40 +21,26 @@
         <div id="body-wrap" class="inner-wrapper">
             <div id="map-chart" class="view"></div>
         </div>
-    </div>
-    <div class="table">
-        <table class="table">
-            <thead class=table-header>
-            <tr id="columnHeaders">
-                <th class="sortable">Year<i class="fas no-display"></i></th>
-                <th class="sortable">Host Country<i class="fas no-display"></i></th>
-                <th class="sortable">Winner<i class="fas no-display"></i></th>
-                <th class="sortable">Runner Up<i class="fas no-display"></i></th>
-                <th class="sortable">Third Place<i class="fas no-display"></i></th>
-                <th class="sortable">Fourth Place<i class="fas no-display"></i></th>
-                <th class="sortable">Countried Qualified<i class="fas no-display"></i></th>
-                <th class="sortable">Matches Played<i class="fas no-display"></i></th>
-                <th class="sortable">Goals Per Game<i class="fas no-display"></i></th>
-                <th class="sortable">Attendence Per Game<i class="fas no-display"></i></th>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            </thead>
-            <tbody id="predictionTableBody">
-            </tbody>
-        </table>
+        <div class="table">
+            <table class="table">
+                <thead class=table-header>
+                <tr id="columnHeaders">
+                    <th class="sortable">Year<i class="fas no-display"></i></th>
+                    <th class="sortable">Host<i class="fas no-display"></i></th>
+                    <th class="sortable">Winner<i class="fas no-display"></i></th>
+                    <th class="sortable">Runner Up<i class="fas no-display"></i></th>
+                    <th class="sortable">Third Place<i class="fas no-display"></i></th>
+                    <th class="sortable">Fourth Place<i class="fas no-display"></i></th>
+                    <th class="sortable">Countried Qualified<i class="fas no-display"></i></th>
+                    <th class="sortable">Games Played<i class="fas no-display"></i></th>
+                    <th class="sortable">Goals Per Game<i class="fas no-display"></i></th>
+                    <th class="sortable">Attendence Per Game<i class="fas no-display"></i></th>
+                </tr>
+                </thead>
+                <tbody id="predictionTableBody">
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>

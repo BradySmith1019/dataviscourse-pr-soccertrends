@@ -6,6 +6,8 @@ loadData().then(data => {
 
     console.log(data);
     const worldMap = new Map(data, updateCountry);
+    console.log("before table call");
+    let table = new Table(data.cups);
 
     function updateCountry(countryID) {
         this.activeCountry = countryID;
@@ -20,8 +22,6 @@ loadData().then(data => {
         gapPlot.updatePlot(this.activeYear);
         infoBox.updateTextDescription(this.activeCountry, this.activeYear);
     }
-
-    let table = new Table(cups);
 
     d3.json('data/world.json').then(mapData => {
         worldMap.drawMap(mapData, this.activeYear);

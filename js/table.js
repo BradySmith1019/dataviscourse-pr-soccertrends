@@ -4,6 +4,7 @@ class Table {
      * Creates a Table Object
      */
     constructor(Data) {
+        console.log("in constructor");
         this.tableData = Data.map(d => d);
 
         // Create the header data
@@ -11,52 +12,52 @@ class Table {
             {
                 sorted: false,
                 ascending: false,
-                key: 'year'
+                key: 'Year'
             },
             {
                 sorted: false,
                 ascending: false,
-                key: 'host',
+                key: 'Host',
             },
             {
                 sorted: false,
                 ascending: false,
-                key: 'winners'
+                key: 'Winner'
             },
             {
                 sorted: false,
                 ascending: false,
-                key: 'runners-up'
+                key: 'RunnersUp'
             },
             {
                 sorted: false,
                 ascending: false,
-                key: 'third'
+                key: 'Third'
             },
             {
                 sorted: false,
                 ascending: false,
-                key: 'fourth'
+                key: 'Fourth'
             },
             {
                 sorted: false,
                 ascending: false,
-                key: 'qualified countries'
+                key: 'QualifiedCountries'
             },
             {
                 sorted: false,
                 ascending: false,
-                key: 'matches played'
+                key: 'MatchesPlayed'
             },
             {
                 sorted: false,
                 ascending: false,
-                key: 'goals per game'
+                key: 'GoalsPerGame'
             },
             {
                 sorted: false,
                 ascending: false,
-                key: 'attendence per game'
+                key: 'AttendencePerGame'
             },
         ]
 
@@ -87,59 +88,64 @@ class Table {
                                 .data(d =>  [d])
                                 .join('text')
                                 .text(d => d.value)
-                                .style("text-align", "center");
+                                .attr("class", "table-text");
 
 
         let freqVizSelection = forecastSelection.filter(d => d.type === 'frequency viz');
-
-        let svgSelect = freqVizSelection.selectAll('svg')
-            .data(d => [d])
-            .join('svg')
-            .attr('width', this.vizWidth)
-            .attr('height', this.vizHeight);
-
-        this.addFrequencyRectangles(svgSelect);
-        
-
-        let percentageVizSelection = forecastSelection.filter(d => d.type === 'percentage viz');
-
-        svgSelect = percentageVizSelection.selectAll('svg')
-                .data(d => [d])
-                .join('svg')
-                .attr('width', this.vizWidth)
-                .attr('height', this.vizHeight);
-
-        this.addPercentageRectangles(svgSelect);
-    }
+   }
 
     /** Convert the data into separte data for each cell column */
     rowToCellDataTransform(d) {
-        let phraseInfo = {
+        let yearInfo = {
             type: 'text',
-            value: d.phrase ,
+            value: d.Year ,
         };
 
-        let frequencyInfo = {
-            type: 'frequency viz',
-            value: d.total * 2, 
-            category: d.category,
-        };
-
-        let percentageInfo = {
-            type: 'percentage viz',
-            value : {
-                democratPercentage: d.percent_of_d_speeches,
-                republicanPercentage: d.percent_of_r_speeches,
-            },
-            category: d.category,
-        };
-
-        let totalInfo = {
+        let hostInfo = {
             type: 'text',
-            value: d.total,
-        }
+            value: d.Host,
+        };
 
-        let dataList = [phraseInfo, frequencyInfo, percentageInfo, totalInfo];
+        let winnerInfo = {
+            type: 'text',
+            value: d.Winner,
+        };
+
+        let runnersUpInfo = {
+            type: 'text',
+            value: d.RunnersUp ,
+        };
+
+        let thirdInfo = {
+            type: 'text',
+            value: d.Third,
+        };
+        let fourthInfo = {
+            type: 'text',
+            value: d.Fourth,
+        };
+
+        let qualifiedCountriesInfo = {
+            type: 'text',
+            value: d.QualifiedCountries,
+        };
+
+        let matchesPlayedInfo = {
+            type: 'text',
+            value: d.MatchesPlayed,
+        };
+
+        let goalsPerGameInfo = {
+            type: 'text',
+            value: d.GoalsPerGame,
+        };
+
+        let attendencePerGameInfo = {
+            type: 'text',
+            value: d.AttendancePerGame,
+        };
+
+        let dataList = [yearInfo, hostInfo, winnerInfo, runnersUpInfo, thirdInfo, fourthInfo, qualifiedCountriesInfo, matchesPlayedInfo, goalsPerGameInfo, attendencePerGameInfo];
         return dataList;
     }
 
@@ -164,53 +170,8 @@ class Table {
         });
     }
 
-    /** Draw the data based on a given partial set of data */
-    drawPartialTable(data){
-        this.updateHeadersPartial();
-        let rowSelection = d3.select('#predictionTableBody')
-            .selectAll('tr')
-            .data(data)
-            .join('tr');
-
-        let forecastSelection = rowSelection.selectAll('td')
-            .data(this.rowToCellDataTransform)
-            .join('td')
-            .attr('class', d => d.class);
-
-        let textSelection = forecastSelection.filter(d => d.type === 'text');
-        let text = textSelection.selectAll('text')
-                                .data(d =>  [d])
-                                .join('text')
-                                .text(d => d.value)
-                                .style("text-align", "center");
-
-
-        let freqVizSelection = forecastSelection.filter(d => d.type === 'frequency viz');
-
-        let svgSelect = freqVizSelection.selectAll('svg')
-            .data(d => [d])
-            .join('svg')
-            .attr('width', this.vizWidth)
-            .attr('height', this.vizHeight);
-
-        this.addFrequencyRectangles(svgSelect);
-        
-
-        let percentageVizSelection = forecastSelection.filter(d => d.type === 'percentage viz');
-
-        svgSelect = percentageVizSelection.selectAll('svg')
-                .data(d => [d])
-                .join('svg')
-                .attr('width', this.vizWidth)
-                .attr('height', this.vizHeight);
-
-        this.addPercentageRectangles(svgSelect);
-    }
-
     /** update the column headers based on the sort state */
     updateHeaders() {
-
-
         let thElement = d3.select('#columnHeaders')
            .selectAll('th');
         thElement.attr("class", d => {
@@ -228,72 +189,6 @@ class Table {
             else
                 return "fas fa-sort-down";
         });
-        
-    }
-
-    // Clears the column headers for a partial set of data since a partial set
-    // cannot be sorted
-    updateHeadersPartial() {
-        let thElement = d3.select('#columnHeaders')
-           .selectAll('th');
-        thElement.attr("class", "sortable");
-        let icon = thElement.select("i");
-        icon.attr("class", "fas no-display");
-    }
-
-    /** Adds the frequency rectangles to the table */
-    addFrequencyRectangles(containerSelect) {
-
-        containerSelect.selectAll("rect").remove();
-
-        containerSelect.append("rect")
-                        .attr("x", d => { 
-                            return this.scaleFrequency(0);})
-                        .attr("y", 5)
-                        .attr("width", d => {
-                                return this.scaleFrequency(d.value) - this.scaleFrequency(0);})
-                        .attr("height", 20)
-                        .attr("class", d => {
-                            if(d.category === "economy/fiscal issues")
-                                return "bar economy";
-                        
-                            else if(d.category === "energy/environment")
-                                return "bar energy";
-                        
-                            else if (d.category === "crime/justice")
-                                return "bar crime";
-                        
-                            else if (d.category === "education")
-                                return "bar education"
-                        
-                            else if (d.category === "health care")
-                                return "bar health-care";
-    
-                            else
-                                return "bar mental-health";});                
-    }
-
-    /** Adds the percentage rectangles to the visualization */
-    addPercentageRectangles(containerSelect) {
-        containerSelect.selectAll("rect").remove();
-
-        containerSelect.append("rect")
-                        .attr("x", d => { 
-                            return this.scalePercentage(-1 * d.value.democratPercentage);})
-                        .attr("y", 5)
-                        .attr("width", d => {
-                                return this.scalePercentage(0) - this.scalePercentage(-1 * d.value.democratPercentage);})
-                        .attr("height", 20)
-                        .attr("class", "democrat");                
-
-        containerSelect.append("rect")
-                        .attr("x", d => { 
-                            return this.scalePercentage(0);})
-                        .attr("y", 5)
-                        .attr("width", d => {
-                                return this.scalePercentage(d.value.republicanPercentage) - this.scalePercentage(0);})
-                        .attr("height", 20)
-                        .attr("class", "republican");  
         
     }
         
@@ -320,14 +215,29 @@ class Table {
             }
         }
 
-        if(d.key === "phrase"){
+        if(d.key === "Year"){
             if(!d.ascending){
                 this.tableData.sort((a,b) =>
                 {
-                    if (a.phrase < b.phrase)
+                    return b.Year - a.Year;
+                })
+            }
+            else{
+                this.tableData.sort((a,b) =>
+                {
+                    return a.Year - b.Year;
+                })
+            }
+        }
+
+        else if(d.key === "Host"){
+            if(!d.ascending){
+                this.tableData.sort((a,b) =>
+                {
+                    if (a.Host < b.Host)
                         return 1;
                     
-                    else if (a.phrase > b.phrase)
+                    else if (a.Host > b.Host)
                         return -1;
                     
                     return 0;
@@ -336,10 +246,10 @@ class Table {
             else{
                 this.tableData.sort((a,b) =>
                 {
-                    if (a.phrase < b.phrase)
+                    if (a.Host < b.Host)
                         return -1;
                     
-                    else if (a.phrase > b.phrase)
+                    else if (a.Host > b.Host)
                         return 1;
                     
                     return 0;
@@ -347,17 +257,163 @@ class Table {
             }
         }
 
-        else if(d.key === "percentages"){
+        else if(d.key === "Winner"){
             if(!d.ascending){
                 this.tableData.sort((a,b) =>
                 {
-                    return b.percent_of_d_speeches - a.percent_of_d_speeches;
+                    if (a.Winner < b.Winner)
+                        return 1;
+                    
+                    else if (a.Winner > b.Winner)
+                        return -1;
+                    
+                    return 0;
                 })
             }
             else{
                 this.tableData.sort((a,b) =>
                 {
-                    return b.percent_of_r_speeches - a.percent_of_r_speeches;
+                    if (a.Winner < b.Winner)
+                        return -1;
+                    
+                    else if (a.Winner > b.Winner)
+                        return 1;
+                    
+                    return 0;
+                })
+            }
+        }
+
+        else if(d.key === "RunnersUp"){
+            if(!d.ascending){
+                this.tableData.sort((a,b) =>
+                {
+                    if (a.RunnersUp < b.RunnersUp)
+                        return 1;
+                    
+                    else if (a.RunnersUp > b.RunnersUp)
+                        return -1;
+                    
+                    return 0;
+                })
+            }
+            else{
+                this.tableData.sort((a,b) =>
+                {
+                    if (a.RunnersUp < b.RunnersUp)
+                        return -1;
+                    
+                    else if (a.RunnersUp > b.RunnersUp)
+                        return 1;
+                    
+                    return 0;
+                })
+            }
+        }
+
+        else if(d.key === "Third"){
+            if(!d.ascending){
+                this.tableData.sort((a,b) =>
+                {
+                    if (a.Third < b.Third)
+                        return 1;
+                    
+                    else if (a.Third > b.Third)
+                        return -1;
+                    
+                    return 0;
+                })
+            }
+            else{
+                this.tableData.sort((a,b) =>
+                {
+                    if (a.Third < b.Third)
+                        return -1;
+                    
+                    else if (a.Third > b.Third)
+                        return 1;
+                    
+                    return 0;
+                })
+            }
+        }
+
+        else if(d.key === "Fourth"){
+            if(!d.ascending){
+                this.tableData.sort((a,b) =>
+                {
+                    if (a.Fourth < b.Fourth)
+                        return 1;
+                    
+                    else if (a.Fourth > b.Fourth)
+                        return -1;
+                    
+                    return 0;
+                })
+            }
+            else{
+                this.tableData.sort((a,b) =>
+                {
+                    if (a.Fourth < b.Fourth)
+                        return -1;
+                    
+                    else if (a.Fourth > b.Fourth)
+                        return 1;
+                    
+                    return 0;
+                })
+            }
+        }
+
+        else if(d.key === "QualifiedCountries"){
+            if(!d.ascending){
+                this.tableData.sort((a,b) =>
+                {
+                    if(b.QualifiedCountries - a.QualifiedCountries == 0)
+                        return b.Year - a.Year;
+                    return b.QualifiedCountries - a.QualifiedCountries;
+                })
+            }
+            else{
+                this.tableData.sort((a,b) =>
+                {
+                    if(a.QualifiedCountries - b.QualifiedCountries == 0)
+                        return a.Year - b.Year;
+                    return a.QualifiedCountries - b.QualifiedCountries;
+                })
+            }
+        }
+
+        else if(d.key === "MatchesPlayed"){
+            if(!d.ascending){
+                this.tableData.sort((a,b) =>
+                {
+                    if(b.MatchesPlayed - a.MatchesPlayed == 0)
+                        return b.Year - a.Year;
+                    return b.MatchesPlayed - a.MatchesPlayed;
+                })
+            }
+            else{
+                this.tableData.sort((a,b) =>
+                {
+                    if(a.MatchesPlayed - b.MatchesPlayed == 0)
+                        return a.Year - b.Year;
+                    return a.MatchesPlayed - b.MatchesPlayed;
+                })
+            }
+        }
+
+        else if(d.key === "GoalsPerGame"){
+            if(!d.ascending){
+                this.tableData.sort((a,b) =>
+                {
+                    return b.GoalsPerGame - a.GoalsPerGame;
+                })
+            }
+            else{
+                this.tableData.sort((a,b) =>
+                {
+                    return a.GoalsPerGame - b.GoalsPerGame;
                 })
             }
         }
@@ -366,13 +422,13 @@ class Table {
             if(!d.ascending){
                 this.tableData.sort((a,b) =>
                 {
-                    return a.total - b.total;
+                    return b.AttendancePerGame - a.AttendancePerGame;
                 })
             }
             else{
                 this.tableData.sort((a,b) =>
                 {
-                    return b.total - a.total;
+                    return a.AttendancePerGame - b.AttendancePerGame;
                 })
             }
         }

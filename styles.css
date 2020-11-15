@@ -195,3 +195,28 @@ Grid Container
     grid-area: bottomright;
 }
 
+.table{
+    float: left;
+    width: 500px;
+}
+
+.sortable {
+    user-select: none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 6px;
+}
+
+.sorting {
+    background: firebrick;
+    color: black;
+}
+
+.table-header {
+    text-align: center;
+    background-color: lightcoral;
+}
+
+.table-text {
+    text-align: center;
+}
