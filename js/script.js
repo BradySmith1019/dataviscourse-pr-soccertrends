@@ -1,6 +1,6 @@
 loadData().then(data => {
 
-    this.activeCountry = null;
+    this.activeCountry = "France";
     this.activeYear = 2014;
     let that = this;
 
@@ -20,6 +20,8 @@ loadData().then(data => {
         gapPlot.updatePlot(this.activeYear);
         infoBox.updateTextDescription(this.activeCountry, this.activeYear);
     }
+
+    let table = new Table(cups);
 
     d3.json('data/world.json').then(mapData => {
         worldMap.drawMap(mapData, this.activeYear);
