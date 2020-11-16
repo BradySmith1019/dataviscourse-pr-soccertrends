@@ -1,11 +1,10 @@
 # dataviscourse-pr-soccertrends
 
 Project Milestone:
-    Currently we have all the basic structure of our project completed. There are a couple placed where the layout may need to be slightly touched up for 
+    Currently we have all the basic structure of our project completed. There are a couple places where the layout may need to be slightly touched up, for 
     example in the spot where the bracket and table are currently overlapping. The table entries also need to be center aligned and we need to look into 
     how to get this to work because simply setting the style to be align: center is not working. Then, the basic infobox and line chart structure is set up 
-    at the bottom of the table. The entries for the textbox may change slightly to also include number of goals scored per game, number of goals conceded per 
-    game, and the highest ever finish for the country and when that occured. Then, the structure of the line chart is also set up but actually getting the line 
+    at the bottom of the table. Then, the structure of the line chart is also set up but actually getting the line 
     to show up properly is proving to be difficult so for right now just the line chart structure has been completed. Currently the general structure of our
     visualization has been completed but the interactive features are not yet functional.
     
