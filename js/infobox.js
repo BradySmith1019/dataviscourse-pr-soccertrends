@@ -24,7 +24,7 @@ class InfoBox {
     constructor(data) {
 
         this.data = data;
-        this.updateTextDescription("USA", "2010", "2014");
+        this.updateTextDescription("FRA", "2014");
     }
 
     /**
@@ -32,10 +32,11 @@ class InfoBox {
      * @param activeCountry the IDs for the active country
      * @param activeYear the year to render the data for
      */
-    updateTextDescription(activeCountry, beginningYear, endYear) {
+    updateTextDescription(activeCountry, beginningYear) {
 
+        let that = this;
         this.clearHighlight();
-        if (activeCountry === null || beginningYear === undefined || endYear === undefined) {
+        if (activeCountry === null || beginningYear === undefined) {
             this.clearHighlight();
         }
 
@@ -62,33 +63,37 @@ class InfoBox {
                 infoDatas.push(info);
             }
 
-            let cupYears = this.data["cups"].filter(d => d.Year >= beginningYear && d.Year <= endYear);
+            let cupYears = this.data["cups"].filter(d => d.Year === beginningYear);
             let wins = 0;
             let totalWins = 0;
             for (let i = 0; i < cupYears.length; i++) {
-                if (cupYears[i]["Winner"] === infoDatas[0].country) {
-                    wins++;
+                if (infoDatas.length != 0) {
+                    if (cupYears[i]["Winner"] === infoDatas[0].country) {
+                        wins++;
+                    }
                 }
+
             }
 
             for (let k = 0; k < this.data["cups"].length; k++) {
-                if (this.data["cups"][k]["Winner"] === infoDatas[0].country) {
-                    totalWins++;
+                if (infoDatas.length != 0) {
+                    if (this.data["cups"][k]["Winner"] === infoDatas[0].country) {
+                        totalWins++;
+                    }
                 }
+
             }
 
             let infoApp = d3.select("#infobox").classed("bottomleft-grid", true).append("div").attr("class", "country-detail")
             .classed("bottomleft-grid", true).attr("id", "infoboxdiv").attr("transform", "translate(0, -500)");
             infoApp.append("h2").text("Country: " + infoDatas[0].country).attr("id", "Country-Name");
 
-            if (beginningYear === endYear) {
-                infoApp.append("h4").text(beginningYear + " World Cup Record " + " (W-L-D): ");
-                infoApp.append("h4").text("World Cups Won (" + beginningYear + "): " + wins);
-            }
-            else {
-                infoApp.append("h4").text(beginningYear + "-" + endYear + " World Cup Record " + " (W-L-D): ");
-                infoApp.append("h4").text("World Cups Won (" + beginningYear + "-" + endYear + "): " + wins);
-            }
+
+                infoApp.append("h4").text(beginningYear +  " World Cup Record " + " (W-L-D): ");
+                infoApp.append("h4").text("Highest Finish: " + that.data["countries"][0]["HighestEverFinish"]);
+                infoApp.append("h4").text("Average Goals per Game: " + that.data["countries"][0]["GoalsPerGame"]);
+                infoApp.append("h4").text("Average Goals Conceded per Game: " + that.data["countries"][0]["GoalsConcededPerGame"]);
+            
 
             infoApp.append("h4").text("Total World Cups Won: " + totalWins);
 

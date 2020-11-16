@@ -160,9 +160,9 @@ class Map {
             }
         }
 
-        else {
-            this.clearHighlight();
-        }
+        // else {
+        //     this.clearHighlight();
+        // }
     }
 
     /**
@@ -220,9 +220,9 @@ class Map {
             }
         }
 
-        else {
-            this.clearHighlight();
-        }
+        // else {
+        //     this.clearHighlight();
+        // }
        
     }
 

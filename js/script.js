@@ -1,13 +1,13 @@
 loadData().then(data => {
 
-    this.activeCountry = 'USA';
+    this.activeCountry = 'FRA';
     this.activeYear = '2014';
     let that = this;
 
     console.log(data);
     const worldMap = new Map(data, updateCountry);
     const infoBox = new InfoBox(data);
-    const lineChart = new LineChart(data);
+    const lineChart = new LineChart(data, this.activeCountry);
     const topRight = new TopRight(data, this.activeYear);
     let table = new Table(data.cups);
 
@@ -59,12 +59,14 @@ async function loadData() {
     let matches = await loadFile('data/WorldCupMatches.csv');
     let players = await loadFile('data/WorldCupPlayers.csv');
     let cups = await loadFile('data/WorldCups.csv');
+    let countries = await loadFile('data/WorldCupCountries.csv');
 
     return {
         'population': pop,
         'matches': matches,
         'players': players,
-        'cups': cups
+        'cups': cups,
+        'countries': countries
     };
 }
 

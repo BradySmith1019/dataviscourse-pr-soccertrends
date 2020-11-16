@@ -2,7 +2,7 @@ class TopRight {
     constructor(data, activeYear) {
         this.data = data;
         this.activeYear = activeYear;
-        this.updateSelectedCountry("USA");
+        this.updateSelectedCountry("France");
         this.updateSelectedWorldCup("2014");
         this.drawYearSlider();
     }
