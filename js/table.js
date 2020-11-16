@@ -65,6 +65,7 @@ class Table {
         this.vizWidth = 150;
         this.vizHeight = 30;
 
+        d3.select("#table").classed("midleft-grid", true);
         this.attachSortHandlers();
         this.drawTable();
     }

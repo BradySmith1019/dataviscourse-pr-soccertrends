@@ -1,11 +1,14 @@
 loadData().then(data => {
 
-    this.activeCountry = "France";
-    this.activeYear = 2014;
+    this.activeCountry = 'USA';
+    this.activeYear = '2014';
     let that = this;
 
     console.log(data);
     const worldMap = new Map(data, updateCountry);
+    const infoBox = new InfoBox(data);
+    const lineChart = new LineChart(data);
+    const topRight = new TopRight(data, this.activeYear);
     let table = new Table(data.cups);
 
     let bracket = new Bracket(data);
@@ -15,19 +18,19 @@ loadData().then(data => {
     function updateCountry(countryID) {
         this.activeCountry = countryID;
         worldMap.updateHighlightClick(this.activeCountry);
+        infoBox.updateTextDescription(this.activeCountry, that.activeYear, that.activeYear);
+        topRight.updateSelectedCountry(this.activeCountry);
     }
 
     function updateYear(year) {
 
-        //TODO - your code goes here -
         this.activeYear = year;
-        gapPlot.drawYearBar();
-        gapPlot.updatePlot(this.activeYear);
-        infoBox.updateTextDescription(this.activeCountry, this.activeYear);
+        //infoBox.updateTextDescription(this.activeCountry, this.activeYear);
     }
 
     d3.json('data/world.json').then(mapData => {
-        worldMap.drawMap(mapData, this.activeYear);
+        worldMap.drawMap(mapData, that.activeYear);
+        worldMap.updateHighlightClick(that.activeCountry);
     });
 
     document.addEventListener("click", function (e) {
