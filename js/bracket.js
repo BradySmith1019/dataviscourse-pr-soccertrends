@@ -19,6 +19,7 @@ class Bracket {
         this.lineThickness = 5;
         this.scoreBuffer = 10;
         this.nameBuffer = 5;
+        d3.select("#bracket").classed("midright-grid", true);
         this.setUpBracketSVG();
     }
 
