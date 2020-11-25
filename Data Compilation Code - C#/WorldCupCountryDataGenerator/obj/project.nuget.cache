@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "DsmwxobvmoWZcxYtLV44JYB0Hd6vzTek+EaFJucJO0pcOZbimJw53AtCTg+4D4DP0PJzJ6es4e6A+7E7ERS7Mw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\micha\\source\\repos\\u1053546\\CS5630Code\\WorldCupCountryDataGenerator\\WorldCupCountryDataGenerator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\micha\\.nuget\\packages\\lumenworkscsvreader\\4.0.0\\lumenworkscsvreader.4.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

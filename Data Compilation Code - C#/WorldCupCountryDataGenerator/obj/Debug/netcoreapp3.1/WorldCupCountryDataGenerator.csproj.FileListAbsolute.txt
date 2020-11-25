@@ -1,0 +1,15 @@
+C:\Users\micha\source\repos\u1053546\CS5630Code\WorldCupCountryDataGenerator\bin\Debug\netcoreapp3.1\WorldCupCountryDataGenerator.exe
+C:\Users\micha\source\repos\u1053546\CS5630Code\WorldCupCountryDataGenerator\obj\Debug\netcoreapp3.1\WorldCupCountryDataGenerator.csprojAssemblyReference.cache
+C:\Users\micha\source\repos\u1053546\CS5630Code\WorldCupCountryDataGenerator\obj\Debug\netcoreapp3.1\WorldCupCountryDataGenerator.AssemblyInfoInputs.cache
+C:\Users\micha\source\repos\u1053546\CS5630Code\WorldCupCountryDataGenerator\obj\Debug\netcoreapp3.1\WorldCupCountryDataGenerator.AssemblyInfo.cs
+C:\Users\micha\source\repos\u1053546\CS5630Code\WorldCupCountryDataGenerator\bin\Debug\netcoreapp3.1\WorldCupCountryDataGenerator.deps.json
+C:\Users\micha\source\repos\u1053546\CS5630Code\WorldCupCountryDataGenerator\bin\Debug\netcoreapp3.1\WorldCupCountryDataGenerator.runtimeconfig.json
+C:\Users\micha\source\repos\u1053546\CS5630Code\WorldCupCountryDataGenerator\bin\Debug\netcoreapp3.1\WorldCupCountryDataGenerator.runtimeconfig.dev.json
+C:\Users\micha\source\repos\u1053546\CS5630Code\WorldCupCountryDataGenerator\bin\Debug\netcoreapp3.1\WorldCupCountryDataGenerator.dll
+C:\Users\micha\source\repos\u1053546\CS5630Code\WorldCupCountryDataGenerator\bin\Debug\netcoreapp3.1\WorldCupCountryDataGenerator.pdb
+C:\Users\micha\source\repos\u1053546\CS5630Code\WorldCupCountryDataGenerator\bin\Debug\netcoreapp3.1\LumenWorks.Framework.IO.dll
+C:\Users\micha\source\repos\u1053546\CS5630Code\WorldCupCountryDataGenerator\obj\Debug\netcoreapp3.1\WorldCupCountryDataGenerator.csproj.CoreCompileInputs.cache
+C:\Users\micha\source\repos\u1053546\CS5630Code\WorldCupCountryDataGenerator\obj\Debug\netcoreapp3.1\WorldCupCountryDataGenerator.csproj.CopyComplete
+C:\Users\micha\source\repos\u1053546\CS5630Code\WorldCupCountryDataGenerator\obj\Debug\netcoreapp3.1\WorldCupCountryDataGenerator.dll
+C:\Users\micha\source\repos\u1053546\CS5630Code\WorldCupCountryDataGenerator\obj\Debug\netcoreapp3.1\WorldCupCountryDataGenerator.pdb
+C:\Users\micha\source\repos\u1053546\CS5630Code\WorldCupCountryDataGenerator\obj\Debug\netcoreapp3.1\WorldCupCountryDataGenerator.genruntimeconfig.cache
