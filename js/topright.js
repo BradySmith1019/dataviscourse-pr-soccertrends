@@ -4,28 +4,57 @@ class TopRight {
         this.activeYear = activeYear;
         this.updateYear = updateYear;
         this.worldCupArray = [1930, 1934, 1938, 1950, 1954, 1958, 1962, 1966, 1970, 1974, 1978, 1982, 1986, 1990, 1994, 1998, 2002, 2006, 2010, 2014];
-        this.updateSelectedCountry("France");
+        this.updateSelectedCountry("FRA");
         this.updateSelectedWorldCup("2014");
         this.drawYearSlider();
     }
 
     async updateSelectedCountry(activeCountry) {
         if (activeCountry !== null) {
-            d3.select("#selected-country").remove();
-            d3.select("#selected").classed("topright-grid", true).append("h1").attr("id", "selected-country").text("Selected Country: " + activeCountry);
+            //d3.select("#selected-country").remove();
+            let goodName = this.data["population"].filter(d => d.geo === activeCountry.toLowerCase());
+            let selected = d3.select("#selected").classed("topright-grid", true).selectAll("h1").data(goodName);
+
+            selected.join(
+                enter =>
+                    enter
+                        .append("h1")
+                        .attr("id", "selected-country")
+                        .text("Selected Country: " + goodName[0]["country"]),
+                update =>
+                    update
+                        .text("Selected Country: " + goodName[0]["country"]),
+                exit => exit.remove()
+            );
+            /*d3.select("#selected").classed("topright-grid", true)
+            .append("h1").attr("id", "selected-country").text("Selected Country: " + goodName[0]["country"]);*/
         }
     }
 
     async updateSelectedWorldCup(newActiveYear) {
         this.activeYear = newActiveYear;
         if (activeYear !== null) {
-            d3.select("h2").remove();
-            d3.select("#selected").append("h2").text("Selected World Cup: " + this.activeYear);
+            //d3.select("h2").remove();
+            let that = this;
+            let goodName = this.data["population"].filter(d => d.geo === activeCountry.toLowerCase());
+            let selected = d3.select("#selected").classed("topright-grid", true).selectAll("h2").data(goodName);
+
+            selected.join(
+                enter =>
+                    enter
+                        .append("h2")
+                        .text("Selected World Cup: " + that.activeYear),
+                update =>
+                    update
+                        .text("Selected World Cup: " + that.activeYear),
+                exit => exit.remove()
+            );
+            //d3.select("#selected").classed("topright-grid", true).append("h2").text("Selected World Cup: " + this.activeYear);
         }
     }
 
     async drawYearSlider() {
-        d3.select("#selected").append("div").attr("id", "year-slider").attr("class", "view");
+        d3.select("#selected").classed("topright-grid", true).append("div").attr("id", "year-slider").attr("class", "view");
         d3.select("#year-slider").append("svg");
 
         let that = this;

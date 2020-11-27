@@ -6,12 +6,13 @@ loadData().then(data => {
 
     console.log(data);
     const worldMap = new Map(data, updateCountry);
-    const infoBox = new InfoBox(data);
-    const lineChart = new LineChart(data, this.activeCountry);
     const topRight = new TopRight(data, this.activeYear, updateYear);
     let table = new Table(data.cups);
-
     let bracket = new Bracket(data);
+
+    const infoBox = new InfoBox(data);
+    const lineChart = new LineChart(data, this.activeCountry);
+
     bracket.drawBracket(activeYear);
 
     function updateCountry(countryID) {
@@ -26,7 +27,7 @@ loadData().then(data => {
         this.activeYear = year;
         topRight.updateSelectedWorldCup(this.activeYear);
         bracket.drawBracket(this.activeYear);
-        //infoBox.updateTextDescription(this.activeCountry, this.activeYear);
+        infoBox.updateTextDescription(this.activeCountry, this.activeYear);
     }
 
     d3.json('data/world.json').then(mapData => {
