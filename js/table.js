@@ -82,7 +82,7 @@ class Table {
         let forecastSelection = rowSelection.selectAll('td')
             .data(this.rowToCellDataTransform)
             .join('td')
-            .attr('class', d => d.class);
+            .attr('class', "table-text");
 
         let textSelection = forecastSelection.filter(d => d.type === 'text');
         let text = textSelection.selectAll('text')

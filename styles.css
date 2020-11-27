@@ -27,6 +27,14 @@
     float: left;
 }
 
+.th {
+    text-align: center;
+}
+
+.td {
+    text-align: center;
+}
+
 #country-detail {
     display: inline-block;
     width: 750px;
@@ -157,7 +165,7 @@ circle.europe.selected-country {
 
 #country-detail {
     display: inline-block;
-    width: 750px;
+    width: 400px;
     height: 100px;
     margin: auto;
     position: relative;
@@ -177,7 +185,7 @@ Grid Container
     grid-template-areas: 
     'topleft topleft topleft topright topright topright'
     'midleft midleft midleft midright midright midright'
-    'bottomleft bottomleft bottomleft bottomright bottomright bottomright';
+    'bottomleft bottomright bottomright bottomright bottomright bottomright';
     background-color: white;
     padding: 10px;
     position: relative;

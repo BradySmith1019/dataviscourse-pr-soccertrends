@@ -65,27 +65,6 @@ class InfoBox {
                 infoDatas.push(info);
             }
 
-            /*let cupYears = this.data["cups"].filter(d => d.Year === beginningYear);
-            let wins = 0;
-            let totalWins = 0;
-            for (let i = 0; i < cupYears.length; i++) {
-                if (infoDatas.length != 0) {
-                    if (cupYears[i]["Winner"] === infoDatas[0].country) {
-                        wins++;
-                    }
-                }
-
-            }
-
-            for (let k = 0; k < this.data["cups"].length; k++) {
-                if (infoDatas.length != 0) {
-                    if (this.data["cups"][k]["Winner"] === infoDatas[0].country) {
-                        totalWins++;
-                    }
-                }
-
-            }*/
-
             let goodName = that.data["population"].filter(d => d.geo === activeCountry.toLowerCase());
 
             let selectedCountry;

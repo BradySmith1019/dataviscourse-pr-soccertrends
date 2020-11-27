@@ -41,7 +41,7 @@ class LineChart {
         let iScale_line = d3
         .scaleLinear()
         //.domain([beginningYear, endYear])
-        .rangeRound([10, 500]);
+        .rangeRound([10, 600]);
 
         let aLineGenerator = d3
         .line()
@@ -53,16 +53,19 @@ class LineChart {
         //aScale.domain(that.data["countries"].map(d => d.placement));
         iScale_line.domain([beginningYear, endYear]);
 
-        d3.select("#line-chart").classed("bottomright-grid", true).append("svg").attr("id", "line-chart-svg").attr("width", "600").attr("height", "600");
+        d3.select("#line-chart").classed("bottomright-grid", true).append("svg").attr("id", "line-chart-svg").attr("width", "100%").attr("height", "800");
         d3.select("#line-chart-svg").append("g").attr("id", "left-axis");
 
         let aAxis_line = d3.axisLeft(aScale).ticks(8);
-        d3.select("#left-axis").attr("transform", "translate(100,5)").call(aAxis_line);
-        d3.select("#left-axis").append("text").text("Placement").attr("transform", "translate(50, 20)");
+        d3.select("#left-axis").attr("transform", "translate(80,0)").call(aAxis_line);
+        d3.select("#line-chart-svg").append("text").text("Placement").attr("transform", "translate(30, 0)");
 
         d3.select("#line-chart-svg").append("g").attr("id", "bottom-axis");
-        let bottomAxis = d3.axisBottom(iScale_line).ticks((((endYear - beginningYear) / 4)));
-        d3.select("#bottom-axis").attr("transform", "translate(90, 405)").call(bottomAxis);
+        let numTicks = ((parseInt(endYear) - parseInt(beginningYear)) / 4) + 1;
+        let bottomAxis = d3.axisBottom(iScale_line)
+        .tickValues(d3.range(beginningYear, endYear + 4, 4))
+        .tickFormat(d3.format("d"));
+        d3.select("#bottom-axis").attr("transform", "translate(70, 405)").call(bottomAxis);
         
 
     // Select the graph's path and add data
