@@ -8,12 +8,11 @@ loadData().then(data => {
     const worldMap = new Map(data, updateCountry);
     const infoBox = new InfoBox(data);
     const lineChart = new LineChart(data, this.activeCountry);
-    const topRight = new TopRight(data, this.activeYear);
+    const topRight = new TopRight(data, this.activeYear, updateYear);
     let table = new Table(data.cups);
 
     let bracket = new Bracket(data);
     bracket.drawBracket(activeYear);
-
 
     function updateCountry(countryID) {
         this.activeCountry = countryID;
@@ -25,6 +24,8 @@ loadData().then(data => {
     function updateYear(year) {
 
         this.activeYear = year;
+        topRight.updateSelectedWorldCup(this.activeYear);
+        bracket.drawBracket(this.activeYear);
         //infoBox.updateTextDescription(this.activeCountry, this.activeYear);
     }
 

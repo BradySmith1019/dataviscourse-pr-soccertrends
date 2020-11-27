@@ -17,7 +17,7 @@ class Bracket {
         this.svgWidth = 1260;
         this.svgHeight = 860;
         this.lineThickness = 5;
-        this.scoreBuffer = 10;
+        this.scoreBuffer = 12;
         this.nameBuffer = 5;
         d3.select("#bracket").classed("midright-grid", true);
         this.setUpBracketSVG();
@@ -57,6 +57,8 @@ class Bracket {
      * @param world the json data with the shape of all countries and a string for the activeYear
      */
     async drawBracket(activeYear) {
+        d3.select("#bracket-svg").selectAll('text').remove();
+        d3.select("#bracket-svg").selectAll('line').remove();
         this.writeTitle(activeYear);
         this.drawBracketLines(activeYear);
         this.addTeamNames(activeYear);
@@ -75,8 +77,30 @@ class Bracket {
                 });
     }
 
-    drawBracketLines(activeYear){
-        let that = this;
+    drawBracketLines(activeYear){      
+        if(activeYear == 1950)
+            return;
+
+        this.drawFinalLines();
+
+        if(activeYear == 1974 || activeYear == 1978)
+            return;
+
+        this.drawSFLines();
+
+        if(activeYear == 1930 || activeYear == 1982)
+            return;
+
+        this.drawQFLines();
+
+        if(activeYear == 1954 || activeYear == 1958 || activeYear == 1962 || activeYear == 1966 || activeYear == 1970)
+            return;
+
+        this.drawR16Lines();
+    }
+
+    drawR16Lines(){
+        let that = this
         let Roundof16Lines = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
         let R16Lines = d3.select("#R16-Lines").selectAll('line');
         let joined = R16Lines.data(Roundof16Lines).join('line')
@@ -84,7 +108,7 @@ class Bracket {
                 if(d < 8)
                     return that.buffer;
                 else if (d >= 8 && d < 16)
-                    return that.svgWidth - that.buffer - that.lineLength;
+                    return that.svgWidth - that.buffer - that.lineLength - that.lineThickness / 2;
                 else if (d >= 16 && d < 20)
                     return that.lineLength + that.buffer;
                 else
@@ -100,7 +124,7 @@ class Bracket {
                     return that.buffer + that.R16Separation * 2 * (d - 20);})
               .attr("x2", d =>{
                 if(d < 8)
-                    return that.buffer + that.lineLength;
+                    return that.buffer + that.lineLength + that.lineThickness / 2;
                 else if (d >= 8 && d < 16)
                     return that.svgWidth - that.buffer;
                 else if (d >= 16 && d < 20)
@@ -116,16 +140,19 @@ class Bracket {
                     return that.buffer + that.R16Separation * 2 * (d - 16) + that.R16Separation;
                 else
                     return that.buffer + that.R16Separation * 2 * (d - 20) + that.R16Separation;})
-              .attr("class", "bracket-line");       
-        
+              .attr("class", "bracket-line");   
+    }
+
+    drawQFLines(){
+        let that = this;
         let QuarterfinalLines = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
         let QFLines = d3.select("#QF-Lines").selectAll('line');
-        joined = QFLines.data(QuarterfinalLines).join('line')
+        let joined = QFLines.data(QuarterfinalLines).join('line')
         joined.attr("x1", d =>{
                 if(d < 4)
                     return that.buffer + that.lineLength;
                 else if (d >= 4 && d < 8)
-                    return that.svgWidth - that.buffer - that.lineLength * 2;
+                    return that.svgWidth - that.buffer - that.lineLength * 2 - that.lineThickness / 2;
                 else if (d >= 8 && d < 10)
                     return that.lineLength * 2 + that.buffer;
                 else
@@ -141,7 +168,7 @@ class Bracket {
                     return that.buffer + that.R16Separation * 4 * (d - 10) + that.R16Separation / 2;})
               .attr("x2", d =>{
                 if(d < 4)
-                    return that.buffer + that.lineLength * 2;
+                    return that.buffer + that.lineLength * 2 + that.lineThickness / 2;
                 else if (d >= 4 && d < 8)
                     return that.svgWidth - that.buffer - that.lineLength;
                 else if (d >= 8 && d < 10)
@@ -157,16 +184,19 @@ class Bracket {
                     return that.buffer + that.R16Separation * 4 * (d - 8) + 2 * that.R16Separation + that.R16Separation / 2;
                 else
                     return that.buffer + that.R16Separation * 4 * (d - 10) + 2 * that.R16Separation + that.R16Separation / 2;})
-              .attr("class", "bracket-line");        
-    
+              .attr("class", "bracket-line");      
+    }
+
+    drawSFLines(){
+        let that = this;
         let SemifinalLines = [0, 1, 2, 3, 4, 5];
         let SFLines = d3.select("#SF-Lines").selectAll('line');
-        joined = SFLines.data(SemifinalLines).join('line');
+        let joined = SFLines.data(SemifinalLines).join('line');
         joined.attr("x1", d =>{
                 if(d < 2)
                     return that.buffer + that.lineLength * 2;
                 else if (d >= 2 && d < 4)
-                    return that.svgWidth - that.buffer - that.lineLength * 3;
+                    return that.svgWidth - that.buffer - that.lineLength * 3 - that.lineThickness / 2;
                 else if (d == 4)
                     return that.lineLength * 3 + that.buffer;
                 else
@@ -180,7 +210,7 @@ class Bracket {
                     return that.buffer + that.R16Separation / 2 * 3;})
               .attr("x2", d =>{
                 if(d < 2)
-                    return that.buffer + that.lineLength * 3;
+                    return that.buffer + that.lineLength * 3 + that.lineThickness / 2;
                 else if (d >= 2 && d < 4)
                     return that.svgWidth - that.buffer - that.lineLength * 2;
                 else if (d == 4)
@@ -195,10 +225,13 @@ class Bracket {
                 else
                     return that.buffer + that.R16Separation / 2 * 3 + that.R16Separation * 4;})
               .attr("class", "bracket-line"); 
+    }
 
+    drawFinalLines(){
+        let that = this;
         let FinalLines = [0, 1];
         let FLines = d3.select("#Final-Lines").selectAll('line');
-        joined = FLines.data(FinalLines).join('line')
+        let joined = FLines.data(FinalLines).join('line')
         joined.attr("x1", d =>{
                 if(d == 0)
                     return that.buffer + that.lineLength * 3;
@@ -223,17 +256,34 @@ class Bracket {
     }
 
     addTeamNames(activeYear){
-        let R16Matchups = this.matchesData.filter(d => d.Year == activeYear && d.Stage == 'Round of 16');
-        let QFMatchups = this.matchesData.filter(d => d.Year == activeYear && d.Stage == 'Quarter-finals');
-        let SFMatchups = this.matchesData.filter(d => d.Year == activeYear && d.Stage == 'Semi-finals');
-        let FinalMatchup = this.matchesData.filter(d => d.Year == activeYear && d.Stage == 'Final');
         let YearData = this.cupData.filter(d => d.Year == activeYear);
-        console.log(QFMatchups);
-        this.writeR16Data(R16Matchups);
-        this.writeQFData(QFMatchups);
-        this.writeSFData(SFMatchups);
-        this.writeFinalData(FinalMatchup);
         this.writeWinner(YearData);
+
+        if(activeYear == 1950)
+            return;
+
+        let FinalMatchup = this.matchesData.filter(d => d.Year == activeYear && d.Stage == 'Final');
+        this.writeFinalData(FinalMatchup);
+
+        if(activeYear == 1974 || activeYear == 1978)
+            return;
+
+        let SFMatchups = this.matchesData.filter(d => d.Year == activeYear && d.Stage == 'Semi-finals');
+        this.writeSFData(SFMatchups);
+
+        if(activeYear == 1930 || activeYear == 1982)
+            return;
+
+        let QFMatchups = this.matchesData.filter(d => d.Year == activeYear && d.Stage == 'Quarter-finals');
+        this.writeQFData(QFMatchups);
+
+        if(activeYear == 1954 || activeYear == 1958 || activeYear == 1962 || activeYear == 1966 || activeYear == 1970)
+            return;
+
+        let R16Matchups = this.matchesData.filter(d => d.Year == activeYear && d.Stage == 'Round of 16');
+        this.writeR16Data(R16Matchups);
+
+
     }
 
     writeR16Data(Matchups){
@@ -244,7 +294,7 @@ class Bracket {
                 if (i < 4)
                     return that.buffer + that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - 70;})
+                    return that.svgWidth - that.buffer - 90;})
                 .attr("y", (d, i) => {
                     if (i < 4)
                         return that.buffer - that.lineThickness + that.R16Separation * 2 * i;
@@ -264,7 +314,7 @@ class Bracket {
                 if (i < 4)
                     return that.buffer + that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - 70;})
+                    return that.svgWidth - that.buffer - 90;})
                 .attr("y", (d, i) => {
                     if (i < 4)
                         return that.buffer - that.lineThickness + that.R16Separation * 2 * i + that.R16Separation;
@@ -327,7 +377,7 @@ class Bracket {
                 if (i < 2)
                     return that.buffer + that.lineLength + that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - 70 - that.lineLength;})
+                    return that.svgWidth - that.buffer - 90 - that.lineLength;})
                 .attr("y", (d, i) => {
                     if (i < 2)
                         return that.buffer - that.lineThickness + that.R16Separation * 4 * i + that.R16Separation / 2;
@@ -347,7 +397,7 @@ class Bracket {
                 if (i < 2)
                     return that.buffer + that.lineLength + that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - 70 - that.lineLength;})
+                    return that.svgWidth - that.buffer - 90 - that.lineLength;})
                 .attr("y", (d, i) => {
                     if (i < 2)
                         return that.buffer - that.lineThickness + that.R16Separation * 4 * i + that.R16Separation * 2 + that.R16Separation / 2;
@@ -410,7 +460,7 @@ class Bracket {
                 if (i == 0)
                     return that.buffer + that.lineLength * 2 + that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - 70 - that.lineLength * 2;})
+                    return that.svgWidth - that.buffer - 90 - that.lineLength * 2;})
                 .attr("y", (d, i) => {
                         return that.buffer - that.lineThickness + that.R16Separation * 3 / 2;})
                 .attr("class", (d, i) => {
@@ -427,7 +477,7 @@ class Bracket {
                 if (i == 0)
                     return that.buffer + that.lineLength * 2 + that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - 70 - that.lineLength * 2;})
+                    return that.svgWidth - that.buffer - 90 - that.lineLength * 2;})
               .attr("y", (d, i) => {
                     return that.buffer - that.lineThickness + that.R16Separation * 3 / 2 + that.R16Separation * 4;})
               .attr("class", (d, i) => {
@@ -492,7 +542,7 @@ class Bracket {
         let AwayNames = d3.select("#FinalAwayNames").selectAll('text');
         joined = AwayNames.data(Matchup).join('text')
         joined.attr("x", (d, i) => {
-                    return that.svgWidth - that.buffer - 70 - that.lineLength * 3;})
+                    return that.svgWidth - that.buffer - 90 - that.lineLength * 3;})
               .attr("y", (d, i) => {
                     return that.buffer - that.lineThickness + that.R16Separation * 7 / 2;})
               .attr("class", (d, i) => {

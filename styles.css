@@ -295,13 +295,13 @@ Grid Container
 }
 
 .bracket-label{
-    font-size: 9pt;
+    font-size: 12pt;
     font-weight: 1000;
 }
 
 .winning-label{
     font-size: 20pt;
-    font-weight: 1000;
+    font-weight: 2000;
 }
 
 .bracket-title{
@@ -310,10 +310,22 @@ Grid Container
 }
 
 .left-bracket{
-    text-align: left;
+    text-anchor: left;
 }
 
 .right-bracket{
-    text-align: right;
+    text-anchor: right;
+}
+
+.winning-country{
+    fill: gold;
+}
+
+.runners-up-country{
+    fill: silver;
+}
+
+.third-place-country{
+    fill: #b08d57;
 }
 
