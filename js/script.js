@@ -1,10 +1,11 @@
 loadData().then(data => {
 
+    // Default selections
     this.activeCountry = 'FRA';
     this.activeYear = '2014';
     let that = this;
 
-    console.log(data);
+    // Creates each of the views
     const worldMap = new Map(data, updateCountry);
     const topRight = new TopRight(data, this.activeYear, updateYear);
     let table = new Table(data.cups);
@@ -15,13 +16,16 @@ loadData().then(data => {
 
     bracket.drawBracket(activeYear);
 
+    // Calls the appropriate functions in each view when the selected country has been changed
     function updateCountry(countryID) {
         that.activeCountry = countryID;
         infoBox.updateTextDescription(that.activeCountry, that.activeYear, that.activeYear);
         topRight.updateSelectedCountry(that.activeCountry);
+        lineChart.drawChart(that.activeCountry);
         worldMap.highlightCountries(that.activeCountry, that.activeYear);
     }
 
+    // Calls the appropriate functions in each view when the selected World Cup has changed
     function updateYear(year) {
         that.activeYear = year;
         topRight.updateSelectedWorldCup(that.activeYear);
@@ -30,6 +34,7 @@ loadData().then(data => {
         worldMap.highlightCountries(that.activeCountry, that.activeYear);
     }
 
+    // Loads in the world map data so it can be drawn
     d3.json('data/world.json').then(mapData => {
         worldMap.drawMap(mapData, that.activeYear);
         worldMap.highlightCountries(that.activeCountry, that.activeYear);

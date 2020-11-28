@@ -2,122 +2,120 @@ class LineChart {
     constructor(data, activeCountry) {
         this.data = data;
         this.activeCountry = activeCountry;
-        this.drawChart("2002", "2014");
+        this.drawChart("FRA");
     }
 
-    drawChart(beginningYear, endYear) {
+    drawChart(activeCountry) {
+        this.activeCountry = activeCountry;
         let that = this;
-        
-        // Scale sequential
-        // Scale ordinal
-        // Scale categorical
-        // legend
+        if (activeCountry === null || activeCountry === undefined) {
+            return;
+        }
 
+        // Removes the previous line chart
+        d3.select("#line-chart-svg").remove();
+
+        // Converts the abbreviated country name to the actual country name
         let goodName = that.data["population"].filter(d => d.geo === that.activeCountry.toLowerCase());
 
+        // Selects the current country
         let selectedCountry = that.data["countries"].filter(d => d.Country === goodName[0]["country"]);
-        /*let selectedYears = selectedCountry.filter(function(d) {
-            return d >= beginningYear && d <= endYear;
-        });*/
 
-        /*let begin = parseInt(beginningYear);
-        let end = parseInt(endYear);
-        let selectedYears = [];
-        while (begin <= end) {
-            let beginFinish = begin + "Finish";
-            let endFinish = end + "Finish";
-
-            selectedYears.push(selectedCountry[0][beginFinish]);
-
-            begin = begin + 4;
-        }*/
+        // Scale for the y-axis
         let aScale = d3
         .scaleBand()
-        .domain(["Winners", "Runners-Up", "Third Place", "Semifinalists", "Quarterfinalists", "Round of 16", "Group Stage", "Did Not Qualify"])//that.data["countries"].map(d => d.placement))
-        .rangeRound([0, 400])
-        .padding(0.1)
-        ;
+        .domain(["Winners", "Final Group", "Runners-Up", "Third Place", "Semifinalists", "Quarterfinalists", "Round of 16", "Group Stage", "Did Not Qualify"])//that.data["countries"].map(d => d.placement))
+        .rangeRound([0, 400]);
 
+        // Scale for the x-axis
         let iScale_line = d3
         .scaleLinear()
-        //.domain([beginningYear, endYear])
+        .domain([1930, 2014])
         .rangeRound([10, 600]);
 
         let aLineGenerator = d3
         .line()
-        .x((d, i) => d)
+        .x(function(d) {
+            // Takes off the "finish" at the end of the data so that it is just the year
+            let noFinish = d.Year.substring(0, 4);
+            return iScale_line(noFinish);
+        })
         .y(function(d) { 
-            return console.log(d) 
+            return aScale(d.Placement) 
         });
 
-        //aScale.domain(that.data["countries"].map(d => d.placement));
-        iScale_line.domain([beginningYear, endYear]);
-
+        // Adds the line chart to the bottom left of the css grid layout
         d3.select("#line-chart").classed("bottomright-grid", true).append("svg").attr("id", "line-chart-svg").attr("width", "100%").attr("height", "800");
+        
+        // Adds the y-axis to the svg
         d3.select("#line-chart-svg").append("g").attr("id", "left-axis");
 
-        let aAxis_line = d3.axisLeft(aScale).ticks(8);
-        d3.select("#left-axis").attr("transform", "translate(80,0)").call(aAxis_line);
-        d3.select("#line-chart-svg").append("text").text("Placement").attr("transform", "translate(30, 0)");
+        // Creates the y-axis
+        let aAxis_line = d3.axisLeft(aScale).ticks(9);
 
+        // Populates the y-axis
+        d3.select("#left-axis").attr("transform", "translate(80,50)").call(aAxis_line);
+
+        // Adds titles to the axes
+        d3.select("#line-chart-svg").append("text").text("Placement").attr("transform", "translate(-1, 30)");
+        d3.select("#line-chart-svg").append("text").text("Year").attr("transform", "translate(400, 500)");
+
+        // Adds the x-axis to the svg
         d3.select("#line-chart-svg").append("g").attr("id", "bottom-axis");
-        let numTicks = ((parseInt(endYear) - parseInt(beginningYear)) / 4) + 1;
+
+        // Creates the x-axis
         let bottomAxis = d3.axisBottom(iScale_line)
-        .tickValues(d3.range(beginningYear, endYear + 4, 4))
+        .tickValues(d3.range(1930, 2014 + 4, 4))
         .tickFormat(d3.format("d"));
-        d3.select("#bottom-axis").attr("transform", "translate(70, 405)").call(bottomAxis);
+
+        // Populates the x-axis
+        d3.select("#bottom-axis").attr("transform", "translate(70, 450)").call(bottomAxis);
         
+        // Finds the indices of all the world cups in the given data to be used in creating the line
+        let beginFinish = 1930 + "Finish";
+        let endFinish = 2014 + "Finish";
+        let arr = Object.entries(selectedCountry[0]);
+        let beginIndex = arr.findIndex(d => d[0] === beginFinish);
+        let endIndex = arr.findIndex(d => d[0] === endFinish);
 
-    // Select the graph's path and add data
-    //d3.select("#line-chart-svg").append("path").data(f).attr("d", aLineGenerator);
-    let aLine = d3.select("#line-chart-svg").append("g").attr("class", "line-chart-x").attr("id", "line-chart-path")
-    .attr("transform", "translate(50,15)").selectAll("path").data(selectedCountry);
+        let ranger = arr.slice(beginIndex, endIndex + 1);
 
-    // Handle entering, updating, and exiting new information
-    aLine.join(
-      enter =>
-        enter
-          .append("path")
-          .attr("class", "line-chart-x")
-          .style("stroke-width", 2)
-          .style("fill", "none")
-          .attr("d", function(d) {
-              console.log(d);
-              let noFinish = Object.keys(d);
-              return aLineGenerator(d);
-              if (d >= beginningYear && d.Year <= endYear) {
-                  //let sendingIn = {dummy: "dummy", placement: "holder"};
-                  if (d.Winner === that.activeCountry) {
-                      sendingIn.placement = "Winner";
-                      return aLineGenerator("Winner");
-                  }
-                  if (d.RunnersUp === that.activeCountry) {
-                      sendingIn.placement = "Runners-Up"
-                      return aLineGenerator("Runners-Up")
-                  }
-                  if (d.Third === that.activeCountry) {
-                      sendingIn.placement = "Third Place";
-                      return aLineGenerator("Third Place");
-                  }
-                  if (d.Fourth === that.activeCountry) {
-                      sendingIn.placement = "Semifinals";
-                      return aLineGenerator("Semifinals");
-                  }
-                  else {
-                      sendingIn.placement = "Did Not Qualify";
-                      return aLineGenerator(d);
-                  }
-              }
-          }),
-        update =>
-          update
-            .attr("class", "line-chart-x")
-            .style("stroke-width", 2)
-            .style("fill", "none")
-            .attr("d", function() {
-              return aLineGenerator(data);
-            }),
-        exit => exit.remove()
-    );
+        // Needed to ensure the .enter and .update only iterate through once
+        // doesn't work otherwise
+        let holder = [];
+        holder.push(1);
+        
+        // Adds the line to the line chart
+        let aLine = d3.select("#line-chart-svg").append("g").attr("class", "line-chart-x").attr("id", "line-chart-path")
+        .attr("transform", "translate(72,73)").selectAll("path").data(holder);
+
+        // Holds the newly formatted data to be passed into the line generator
+        let newArr = [];
+        
+        // Handle entering, updating, and exiting new information
+        aLine.join(
+            enter =>
+                enter
+                    .append("path")
+                    .attr("class", "line-chart-x")
+                    .attr("d", function(d) {
+                        console.log(d);
+                        for (let i = 0; i < ranger.length; i++) {
+                            let newer = {"Year": ranger[i][0], "Placement": ranger[i][1]};
+                            newArr.push(newer);
+                        }
+                        return aLineGenerator(newArr);
+              
+                    }),
+            update =>
+                update
+                    .attr("class", "line-chart-x")
+                    .style("stroke-width", 2)
+                    .style("fill", "none")
+                    .attr("d", function() {
+                        return aLineGenerator(data);
+                    }),
+            exit => exit.remove()
+        );
     }
 }
