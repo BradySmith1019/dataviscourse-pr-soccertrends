@@ -357,7 +357,7 @@ Grid Container
 }
 
 .runners-up{
-    fill: silver;
+    fill: rgb(161, 158, 158);
 }
 
 .third{
@@ -367,6 +367,12 @@ Grid Container
 .host{
     stroke-width: 1.5px;
     stroke: black;
+}
+
+.host-legend{
+    stroke-width: 1.5px;
+    stroke: black;
+    fill: none;
 }
 
 .selected-country{

@@ -148,7 +148,7 @@ class Map {
         dict["IMN"] = "Isle of Man";
         dict["IND"] = "India";
         dict["IOT"] = "British Indian Ocean Territory";
-        dict["IRL"] = "Ireland";
+        dict["IRL"] = "Republic of Ireland";
         dict["IRN"] = "Iran";
         dict["IRQ"] = "Iraq";
         dict["ISL"] = "Iceland";
@@ -330,28 +330,28 @@ class Map {
         // Add legend
         d3.select("#map-chart-svg").append("rect")
         .attr("x", 80).attr("y", 200).attr("width", 10).attr("height", 10)
-        .attr("class", "winning-country");
+        .attr("class", "winner");
         
         d3.select("#map-chart-svg").append("text").text("Winner")
         .attr("x", 96).attr("y", 211);
 
         d3.select("#map-chart-svg").append("rect")
         .attr("x", 80).attr("y", 222).attr("width", 10).attr("height", 10)
-        .attr("class", "runners-up-country");
+        .attr("class", "runners-up");
         
         d3.select("#map-chart-svg").append("text").text("Runners Up")
         .attr("x", 96).attr("y", 233);
 
         d3.select("#map-chart-svg").append("rect")
         .attr("x", 80).attr("y", 244).attr("width", 10).attr("height", 10)
-        .attr("class", "third-place-country");
+        .attr("class", "third");
         
         d3.select("#map-chart-svg").append("text").text("Third Place")
         .attr("x", 96).attr("y", 255);
 
         d3.select("#map-chart-svg").append("rect")
         .attr("x", 80).attr("y", 266).attr("width", 10).attr("height", 10)
-        .attr("class", "host");
+        .attr("class", "host-legend");
         
         d3.select("#map-chart-svg").append("text").text("Host")
         .attr("x", 96).attr("y", 277);
