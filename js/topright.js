@@ -19,12 +19,12 @@ class TopRight {
             let goodName = this.data["population"].filter(d => d.geo === activeCountry.toLowerCase());
 
             // Adds the info to the top right of the css grid layout
-            let selected = d3.select("#selected").classed("topright-grid", true).selectAll("h1").data(goodName);
+            let selected = d3.select("#selected").classed("topright-grid", true).selectAll("#selected-country").data(goodName);
 
             selected.join(
                 enter =>
                     enter
-                        .append("h1")
+                        .append("h3")
                         .attr("id", "selected-country")
                         .text("Selected Country: " + goodName[0]["country"]),
                 update =>
@@ -44,12 +44,13 @@ class TopRight {
             let goodName = this.data["population"].filter(d => d.geo === that.activeCountry.toLowerCase());
 
             // Adds the info to the top right of the css grid layout
-            let selected = d3.select("#selected").classed("topright-grid", true).selectAll("h2").data(goodName);
+            let selected = d3.select("#selected").classed("topright-grid", true).selectAll("#selected-world-cup").data(goodName);
 
             selected.join(
                 enter =>
                     enter
-                        .append("h2")
+                        .append("h3")
+                        .attr("id", "selected-world-cup")
                         .text("Selected World Cup: " + that.activeYear),
                 update =>
                     update
@@ -97,8 +98,8 @@ class TopRight {
     async drawInstructions() {
         let selected = d3.select("#selected").classed("topright-grid", true);
 
-        selected.append("h5").text("To select a country, click it on the map. To select a World " + 
-        "Cup, use the year slider.")
+        selected.append("h3").text("To select a country, click it on the map.");
+        selected.append("h3").text("To select a World Cup, use the year slider.");
 
     }
 }
