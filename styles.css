@@ -27,14 +27,6 @@
     float: left;
 }
 
-.th {
-    text-align: center;
-}
-
-.td {
-    text-align: center;
-}
-
 #country-detail {
     display: inline-block;
     width: 750px;
@@ -174,6 +166,8 @@ circle.europe.selected-country {
 
 .line-chart-x {
     stroke: rgb(101, 32, 228);
+    stroke-width: 2px;
+    fill: none;
 }
 
 /*
@@ -335,5 +329,15 @@ Grid Container
 
 .third-place-country{
     fill: #b08d57;
+}
+
+.host{
+    fill: none;
+    stroke: black;
+    stroke-width: 1.5px;
+}
+
+.selected-country{
+    fill: magenta;
 }
 

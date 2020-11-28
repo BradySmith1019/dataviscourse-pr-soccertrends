@@ -300,8 +300,8 @@ class Map {
      */
     async drawMap(world) {
         let geoJson = topojson.feature(world, world.objects.countries);
-        console.log(geoJson);
-        console.log(this.ABVRToNameDict);
+
+        // Creates the country data objects
         let countriesData = this.populationData.map(function(d, i) {
             let g = geoJson.features.find(element => element.id === d.geo.toUpperCase());
             let dReg;
@@ -314,16 +314,56 @@ class Map {
             return new CountryData("Feature", d.geo.toUpperCase(), d, g, dReg);
         });
 
+        // Greenland and Antarctica have undefined properties, so they need to be handled separately
         let greenlandGeometry = geoJson.features.find(element => element.id === "GRL");
         countriesData.push(new CountryData("Feature", "GRL", undefined, greenlandGeometry, "countries"));
 
         let antarcticaGeometry = geoJson.features.find(element => element.id === "ATA");
         countriesData.push(new CountryData("Feature", "ATA", undefined, antarcticaGeometry, "countries"));
 
+        // Adds the map to the top left of the css grid layout
         let selectMap = d3.select("#body-wrap").classed("grid-container", true)
         .select("#map-chart").classed("topleft-grid", true);
-        let svg = selectMap.append("svg").attr("id", "map-chart-svg").attr("class", "map-chart svg");
+        let svg = selectMap.append("svg").attr("id", "map-chart-svg").attr("class", "map-chart svg")
+        .attr("transform", "translate(-10, 0)");
+
+        // Add legend
+        d3.select("#map-chart-svg").append("rect")
+        .attr("x", 80).attr("y", 200).attr("width", 10).attr("height", 10)
+        .attr("class", "winning-country");
         
+        d3.select("#map-chart-svg").append("text").text("Winner")
+        .attr("x", 96).attr("y", 211);
+
+        d3.select("#map-chart-svg").append("rect")
+        .attr("x", 80).attr("y", 222).attr("width", 10).attr("height", 10)
+        .attr("class", "runners-up-country");
+        
+        d3.select("#map-chart-svg").append("text").text("Runners Up")
+        .attr("x", 96).attr("y", 233);
+
+        d3.select("#map-chart-svg").append("rect")
+        .attr("x", 80).attr("y", 244).attr("width", 10).attr("height", 10)
+        .attr("class", "third-place-country");
+        
+        d3.select("#map-chart-svg").append("text").text("Third Place")
+        .attr("x", 96).attr("y", 255);
+
+        d3.select("#map-chart-svg").append("rect")
+        .attr("x", 80).attr("y", 266).attr("width", 10).attr("height", 10)
+        .attr("class", "host");
+        
+        d3.select("#map-chart-svg").append("text").text("Host")
+        .attr("x", 96).attr("y", 277);
+
+        d3.select("#map-chart-svg").append("rect")
+        .attr("x", 80).attr("y", 288).attr("width", 10).attr("height", 10)
+        .attr("class", "selected-country");
+        
+        d3.select("#map-chart-svg").append("text").text("Selected")
+        .attr("x", 96).attr("y", 299);
+
+        // Draws the map using the country's data
         let path = d3.geoPath().projection(this.projection);
 
         let paths = svg.selectAll("path").data(countriesData);
@@ -357,6 +397,7 @@ class Map {
             exit => exit.remove()
         );
 
+        // Draws the gridlines
         let graticule = d3.geoGraticule();
         d3.select("#map-chart-svg").append("path")
         .datum(graticule).attr("class", "graticule")
