@@ -12,7 +12,7 @@ class Bracket {
         this.matchesData = data.matches;
         this.cupData = data.cups;
         this.lineLength = 150;
-        this.R16Separation = 100;  
+        this.R16Separation = 85;  
         this.buffer = 30;
         this.svgWidth = 1260;
         this.svgHeight = 860;
@@ -64,7 +64,7 @@ class Bracket {
         this.addTeamNames(activeYear);
     }
 
-    writeTitle(activeYear){
+    async writeTitle(activeYear){
         let that = this;
         let data = [activeYear];
         let Title = d3.select("#Title").selectAll('text');
@@ -77,7 +77,7 @@ class Bracket {
                 });
     }
 
-    drawBracketLines(activeYear){      
+    async drawBracketLines(activeYear){      
         if(activeYear == 1950)
             return;
 
@@ -99,7 +99,7 @@ class Bracket {
         this.drawR16Lines();
     }
 
-    drawR16Lines(){
+    async drawR16Lines(){
         let that = this
         let Roundof16Lines = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
         let R16Lines = d3.select("#R16-Lines").selectAll('line');
@@ -143,7 +143,7 @@ class Bracket {
               .attr("class", "bracket-line");   
     }
 
-    drawQFLines(){
+    async drawQFLines(){
         let that = this;
         let QuarterfinalLines = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
         let QFLines = d3.select("#QF-Lines").selectAll('line');
@@ -187,7 +187,7 @@ class Bracket {
               .attr("class", "bracket-line");      
     }
 
-    drawSFLines(){
+    async drawSFLines(){
         let that = this;
         let SemifinalLines = [0, 1, 2, 3, 4, 5];
         let SFLines = d3.select("#SF-Lines").selectAll('line');
@@ -227,7 +227,7 @@ class Bracket {
               .attr("class", "bracket-line"); 
     }
 
-    drawFinalLines(){
+    async drawFinalLines(){
         let that = this;
         let FinalLines = [0, 1];
         let FLines = d3.select("#Final-Lines").selectAll('line');
@@ -255,12 +255,14 @@ class Bracket {
               .attr("class", "bracket-line"); 
     }
 
-    addTeamNames(activeYear){
+    async addTeamNames(activeYear){
         let YearData = this.cupData.filter(d => d.Year == activeYear);
         this.writeWinner(YearData);
 
-        if(activeYear == 1950)
+        if(activeYear == 1950){
+            this.write1950Message();
             return;
+        }
 
         let FinalMatchup = this.matchesData.filter(d => d.Year == activeYear && d.Stage == 'Final');
         this.writeFinalData(FinalMatchup);
@@ -286,7 +288,7 @@ class Bracket {
 
     }
 
-    writeR16Data(Matchups){
+    async writeR16Data(Matchups){
         let that = this;
         let HomeNames = d3.select("#R16HomeNames").selectAll('text');
         let joined = HomeNames.data(Matchups).join('text')
@@ -294,7 +296,7 @@ class Bracket {
                 if (i < 4)
                     return that.buffer + that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - 90;})
+                    return that.svgWidth - that.buffer - that.lineThickness;})
                 .attr("y", (d, i) => {
                     if (i < 4)
                         return that.buffer - that.lineThickness + that.R16Separation * 2 * i;
@@ -314,7 +316,7 @@ class Bracket {
                 if (i < 4)
                     return that.buffer + that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - 90;})
+                    return that.svgWidth - that.buffer - that.lineThickness;})
                 .attr("y", (d, i) => {
                     if (i < 4)
                         return that.buffer - that.lineThickness + that.R16Separation * 2 * i + that.R16Separation;
@@ -332,9 +334,9 @@ class Bracket {
         joined = HomeGoals.data(Matchups).join('text')
         joined.attr("x", (d, i) => {
                 if (i < 4)
-                    return that.buffer + that.lineLength - that.scoreBuffer * 3;
+                    return that.buffer + that.lineLength - that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - that.lineLength + that.scoreBuffer;})
+                    return that.svgWidth - that.buffer - that.lineLength + that.lineThickness;})
                 .attr("y", (d, i) => {
                     if (i < 4)
                         return that.buffer - that.lineThickness + that.R16Separation * 2 * i;
@@ -342,9 +344,9 @@ class Bracket {
                         return that.buffer - that.lineThickness + that.R16Separation * 2 * (i - 4);})
                 .attr("class", (d, i) => {
                     if (i < 4)
-                        return "left-bracket bracket-label";
-                    else
                         return "right-bracket bracket-label";
+                    else
+                        return "left-bracket bracket-label";
                 })
                 .text(d => d.HomeTeamGoals);
 
@@ -352,9 +354,9 @@ class Bracket {
         joined = AwayGoals.data(Matchups).join('text')
         joined.attr("x", (d, i) => {
                 if (i < 4)
-                    return that.buffer + that.lineLength - that.scoreBuffer * 3;
+                    return that.buffer + that.lineLength - that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - that.lineLength + that.scoreBuffer;})
+                    return that.svgWidth - that.buffer - that.lineLength + that.lineThickness;})
                 .attr("y", (d, i) => {
                     if (i < 4)
                         return that.buffer - that.lineThickness + that.R16Separation * 2 * i + that.R16Separation;
@@ -362,14 +364,14 @@ class Bracket {
                         return that.buffer - that.lineThickness + that.R16Separation * 2 * (i - 4) + that.R16Separation;})
                 .attr("class", (d, i) => {
                     if (i < 4)
-                        return "left-bracket bracket-label";
-                    else
                         return "right-bracket bracket-label";
+                    else
+                        return "left-bracket bracket-label";
                 })
                 .text(d => d.AwayTeamGoals);
     }
 
-    writeQFData(Matchups){
+    async writeQFData(Matchups){
         let that = this;
         let HomeNames = d3.select("#QFHomeNames").selectAll('text');
         let joined = HomeNames.data(Matchups).join('text')
@@ -377,7 +379,7 @@ class Bracket {
                 if (i < 2)
                     return that.buffer + that.lineLength + that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - 90 - that.lineLength;})
+                    return that.svgWidth - that.buffer - that.lineLength - that.lineThickness;})
                 .attr("y", (d, i) => {
                     if (i < 2)
                         return that.buffer - that.lineThickness + that.R16Separation * 4 * i + that.R16Separation / 2;
@@ -397,7 +399,7 @@ class Bracket {
                 if (i < 2)
                     return that.buffer + that.lineLength + that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - 90 - that.lineLength;})
+                    return that.svgWidth - that.buffer - that.lineLength - that.lineThickness;})
                 .attr("y", (d, i) => {
                     if (i < 2)
                         return that.buffer - that.lineThickness + that.R16Separation * 4 * i + that.R16Separation * 2 + that.R16Separation / 2;
@@ -415,9 +417,9 @@ class Bracket {
         joined = HomeGoals.data(Matchups).join('text')
         joined.attr("x", (d, i) => {
                 if (i < 2)
-                    return that.buffer + that.lineLength * 2 - that.scoreBuffer * 3;
+                    return that.buffer + that.lineLength * 2 - that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - that.lineLength * 2 + that.scoreBuffer;})
+                    return that.svgWidth - that.buffer - that.lineLength * 2 + that.lineThickness;})
                 .attr("y", (d, i) => {
                     if (i < 2)
                         return that.buffer - that.lineThickness + that.R16Separation * 4 * i + that.R16Separation / 2;
@@ -425,9 +427,9 @@ class Bracket {
                         return that.buffer - that.lineThickness + that.R16Separation * 4 * (i - 2) + that.R16Separation / 2;})
                 .attr("class", (d, i) => {
                     if (i < 2)
-                        return "left-bracket bracket-label";
-                    else
                         return "right-bracket bracket-label";
+                    else
+                        return "left-bracket bracket-label";
                 })
                 .text(d => d.HomeTeamGoals);
 
@@ -435,9 +437,9 @@ class Bracket {
         joined = AwayGoals.data(Matchups).join('text')
         joined.attr("x", (d, i) => {
                 if (i < 2)
-                    return that.buffer + that.lineLength * 2 - that.scoreBuffer * 3;
+                    return that.buffer + that.lineLength * 2 - that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - that.lineLength * 2 + that.scoreBuffer;})
+                    return that.svgWidth - that.buffer - that.lineLength * 2 + that.lineThickness;})
                 .attr("y", (d, i) => {
                     if (i < 2)
                         return that.buffer - that.lineThickness + that.R16Separation * 4 * i + that.R16Separation / 2 + that.R16Separation * 2;
@@ -445,14 +447,14 @@ class Bracket {
                         return that.buffer - that.lineThickness + that.R16Separation * 4 * (i - 2) + that.R16Separation / 2 + that.R16Separation * 2;})
                 .attr("class", (d, i) => {
                     if (i < 2)
-                        return "left-bracket bracket-label";
-                    else
                         return "right-bracket bracket-label";
+                    else
+                        return "left-bracket bracket-label";
                 })
                 .text(d => d.AwayTeamGoals);
     }
 
-    writeSFData(Matchups){
+    async writeSFData(Matchups){
         let that = this;
         let HomeNames = d3.select("#SFHomeNames").selectAll('text');
         let joined = HomeNames.data(Matchups).join('text')
@@ -460,11 +462,11 @@ class Bracket {
                 if (i == 0)
                     return that.buffer + that.lineLength * 2 + that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - 90 - that.lineLength * 2;})
+                    return that.svgWidth - that.buffer - that.lineLength * 2 - that.lineThickness;})
                 .attr("y", (d, i) => {
                         return that.buffer - that.lineThickness + that.R16Separation * 3 / 2;})
                 .attr("class", (d, i) => {
-                    if (i < 2)
+                    if (i == 0)
                         return "left-bracket bracket-label";
                     else
                         return "right-bracket bracket-label";
@@ -477,11 +479,11 @@ class Bracket {
                 if (i == 0)
                     return that.buffer + that.lineLength * 2 + that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - 90 - that.lineLength * 2;})
+                    return that.svgWidth - that.buffer - that.lineLength * 2 - that.lineThickness;})
               .attr("y", (d, i) => {
                     return that.buffer - that.lineThickness + that.R16Separation * 3 / 2 + that.R16Separation * 4;})
               .attr("class", (d, i) => {
-                if (i < 2)
+                if (i == 0)
                     return "left-bracket bracket-label";
                 else
                     return "right-bracket bracket-label";
@@ -492,16 +494,16 @@ class Bracket {
         joined = HomeGoals.data(Matchups).join('text')
         joined.attr("x", (d, i) => {
                 if (i == 0)
-                    return that.buffer + that.lineLength * 3 - that.scoreBuffer * 3;
+                    return that.buffer + that.lineLength * 3 - that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - that.lineLength * 3 + that.scoreBuffer;})
+                    return that.svgWidth - that.buffer - that.lineLength * 3 + that.lineThickness;})
                 .attr("y", (d, i) => {
                     return that.buffer - that.lineThickness + that.R16Separation * 3 / 2;})
                 .attr("class", (d, i) => {
-                    if (i < 2)
-                        return "left-bracket bracket-label";
-                    else
+                    if (i == 0)
                         return "right-bracket bracket-label";
+                    else
+                        return "left-bracket bracket-label";
                 })
                 .text(d => d.HomeTeamGoals);
 
@@ -509,46 +511,40 @@ class Bracket {
         joined = AwayGoals.data(Matchups).join('text')
         joined.attr("x", (d, i) => {
                 if (i == 0)
-                    return that.buffer + that.lineLength * 3 - that.scoreBuffer * 3;
+                    return that.buffer + that.lineLength * 3 - that.lineThickness;
                 else
-                    return that.svgWidth - that.buffer - that.lineLength * 3 + that.scoreBuffer;})
+                    return that.svgWidth - that.buffer - that.lineLength * 3 + that.lineThickness;})
                 .attr("y", (d, i) => {
-                        return that.buffer - that.lineThickness + that.R16Separation * 3 / 2 + that.R16Separation * 4;})
+                    return that.buffer - that.lineThickness + that.R16Separation * 3 / 2 + that.R16Separation * 4;})
                 .attr("class", (d, i) => {
-                    if (i < 2)
-                        return "left-bracket bracket-label";
-                    else
+                    if (i == 0)
                         return "right-bracket bracket-label";
+                    else
+                        return "left-bracket bracket-label";
                 })
                 .text(d => d.AwayTeamGoals);
     }
 
-    writeFinalData(Matchup){
+    async writeFinalData(Matchup){
         let that = this;
         let HomeNames = d3.select("#FinalHomeNames").selectAll('text');
         let joined = HomeNames.data(Matchup).join('text')
         joined.attr("x", (d, i) => {
                     return that.buffer + that.lineLength * 3 + that.lineThickness;})
                 .attr("y", (d, i) => {
-                        return that.buffer - that.lineThickness + that.R16Separation * 7 / 2;})
+                    return that.buffer - that.lineThickness + that.R16Separation * 7 / 2;})
                 .attr("class", (d, i) => {
-                    if (i < 2)
-                        return "left-bracket bracket-label";
-                    else
-                        return "right-bracket bracket-label";
+                    return "left-bracket bracket-label";
                 })
                 .text(d => d.HomeTeamName);
 
         let AwayNames = d3.select("#FinalAwayNames").selectAll('text');
         joined = AwayNames.data(Matchup).join('text')
         joined.attr("x", (d, i) => {
-                    return that.svgWidth - that.buffer - 90 - that.lineLength * 3;})
+                    return that.svgWidth - that.buffer - that.lineLength * 3 - that.lineThickness;})
               .attr("y", (d, i) => {
                     return that.buffer - that.lineThickness + that.R16Separation * 7 / 2;})
               .attr("class", (d, i) => {
-                if (i < 2)
-                    return "left-bracket bracket-label";
-                else
                     return "right-bracket bracket-label";
                 })
               .text(d => d.AwayTeamName);
@@ -556,13 +552,10 @@ class Bracket {
         let HomeGoals = d3.select("#FinalHomeGoals").selectAll('text');
         joined = HomeGoals.data(Matchup).join('text')
         joined.attr("x", (d, i) => {
-                    return that.buffer + that.lineLength * 4 - that.scoreBuffer * 3;})
+                    return that.buffer + that.lineLength * 4 - that.lineThickness;})
                 .attr("y", (d, i) => {
                     return that.buffer - that.lineThickness + that.R16Separation * 7 / 2;})
                 .attr("class", (d, i) => {
-                    if (i < 2)
-                        return "left-bracket bracket-label";
-                    else
                         return "right-bracket bracket-label";
                 })
                 .text(d => d.HomeTeamGoals);
@@ -570,31 +563,52 @@ class Bracket {
         let AwayGoals = d3.select("#FinalAwayGoals").selectAll('text');
         joined = AwayGoals.data(Matchup).join('text')
         joined.attr("x", (d, i) => {
-                    return that.svgWidth - that.buffer - that.lineLength * 4 + that.scoreBuffer;})
+                    return that.svgWidth - that.buffer - that.lineLength * 4 + that.lineThickness;})
                 .attr("y", (d, i) => {
                         return that.buffer - that.lineThickness + that.R16Separation * 7 / 2;})
                 .attr("class", (d, i) => {
-                    if (i < 2)
                         return "left-bracket bracket-label";
-                    else
-                        return "right-bracket bracket-label";
                 })
                 .text(d => d.AwayTeamGoals);
     }
 
-    writeWinner(YearData){
+    async writeWinner(YearData){
         let that = this;
         let Winner = d3.select("#Winner").selectAll('text');
         let joined = Winner.data(YearData).join('text');
         joined.attr("x", (d, i) => {
-                    return that.buffer + that.lineLength * 4 - 100;})
+                    return that.buffer + that.lineLength * 4;})
                 .attr("y", (d, i) => {
-                    return that.buffer - 20 + that.R16Separation * 2;})
+                    return that.buffer - 40 + that.R16Separation * 2;})
                 .attr("class", (d, i) => {
-                    return "winning-label";
+                    return "middle-bracket winning-label";
                 })
                 .text(d => {
                     return "Winner: " + d.Winner;
                 });
+    }
+
+    async write1950Message(){
+        let that = this;
+        let bracketSVG = d3.select("#bracket-svg");
+        let text = bracketSVG.append('text');
+        text.attr("x", (d, i) => {
+                return that.buffer + that.lineLength * 4;})
+            .attr("y", (d, i) => {
+                return that.buffer - that.lineThickness + that.R16Separation * 5 / 2 - 25;})
+            .attr("class", (d, i) => {
+                return "middle-bracket explanation-label";
+            })
+            .text("The 1950 world cup was the only world cup in history not to have a knockout stage.");
+
+        text = bracketSVG.append('text');
+        text.attr("x", (d, i) => {
+                return that.buffer + that.lineLength * 4;})
+            .attr("y", (d, i) => {
+                return that.buffer - that.lineThickness + that.R16Separation * 5 / 2;})
+            .attr("class", (d, i) => {
+                return "middle-bracket explanation-label";
+            })
+            .text("Uruguay were crowned champions after a second group stage.");
     }
 }

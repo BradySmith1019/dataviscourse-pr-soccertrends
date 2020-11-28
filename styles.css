@@ -124,8 +124,8 @@ circle.africa.selected-country {
     /* stroke: #000000;*/
 }
 
-.asia {
-    fill: #a8a8a8;
+.country {
+    fill: #ececec;
     stroke: #fff;
     stroke-width: .3px;
 }
@@ -293,8 +293,32 @@ Grid Container
     background-color: lightcoral;
 }
 
+.table-legend-line {
+    stroke: black;
+    stroke-width: 1px;
+}
+
+.label{
+    text-anchor: middle;
+    font-size: 9pt;
+    font-weight: 1000;
+}
+
 .table-text {
     text-align: center;
+}
+
+.table-rect{
+    stroke: black;
+    stroke-width: 1px;
+}
+
+.goals{
+    fill: red;
+}
+
+.attendence{
+    fill:navy;
 }
 
 .bracket-line {
@@ -303,7 +327,12 @@ Grid Container
 }
 
 .bracket-label{
-    font-size: 12pt;
+    font-size: 11.5pt;
+    font-weight: 1000;
+}
+
+.explanation-label{
+    font-size: 14pt;
     font-weight: 1000;
 }
 
@@ -318,22 +347,35 @@ Grid Container
 }
 
 .left-bracket{
-    text-anchor: left;
+    text-anchor: start;
 }
 
 .right-bracket{
-    text-anchor: right;
+    text-anchor: end;
 }
 
-.winning-country{
+.middle-bracket{
+    text-anchor: middle;
+}
+
+.winner{
     fill: gold;
 }
 
-.runners-up-country{
+.runners-up{
     fill: silver;
 }
 
-.third-place-country{
+.third{
     fill: #b08d57;
+}
+
+.host{
+    stroke-width: 1.5px;
+    stroke: black;
+}
+
+.selected-country{
+    fill: magenta;
 }
 

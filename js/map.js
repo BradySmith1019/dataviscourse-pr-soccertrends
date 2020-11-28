@@ -33,11 +33,11 @@ class Map {
      */
     constructor(data, updateCountry) {
         this.projection = d3.geoWinkel3().scale(140).translate([365, 225]);
-        this.nameArray = data.population.map(d => d.geo.toUpperCase());
         this.populationData = data.population;
         this.matchesData = data.matches;
         this.updateCountry = updateCountry;
         this.ABVRToNameDict = this.CreateABRRToNameDict();
+        this.cupData = data.cups;
     }
 
     CreateABRRToNameDict(){
@@ -336,15 +336,12 @@ class Map {
                     .attr("d", function(d) {
                         return path(d.geometry);
                     })
-                    .attr("class", function(d){
-                        return d.region;
-                    })
+                    .attr("class", "country")
                     .attr("id", function(d) {
-                        return d.id;
+                        return that.ABVRToNameDict[d.id];
                     })
-                    .on("click", d => this.updateCountry(d.id))
+                    .on("click", d => that.updateCountry(d.id))
                     .on("mouseover", function(d) {
-                        that.highlightCountry(d.id);
                         d3.select(this).append("title").text(that.ABVRToNameDict[d.id]);
                     }),
             update =>
@@ -352,7 +349,7 @@ class Map {
                     .attr("d", path)
                     .attr("class", "boundary")
                     .attr("id", function(d) {
-                        return d.id;
+                        return that.ABVRToNameDict[d.id];
                     }),
             exit => exit.remove()
         );
@@ -366,119 +363,56 @@ class Map {
         .datum(go).attr("class", "stroke").attr("d", path);
     }
 
-    highlightCountry(activeCountry) {
-        if (activeCountry != null) {
-            let svg = document.getElementById("map-chart-svg");
+    async highlightCountries(selectedCountry, selectedYear) {
+        let that = this;
+        let yearData = this.cupData.filter(d => d.Year == selectedYear);
+        let host = yearData[0].Host;
+        let winners = yearData[0].Winner;
+        let runnersUp = yearData[0].RunnersUp;
+        let third = yearData[0].Third;
 
-            for (let i = 0; i < svg.children.length; i++) {
-                let theRegion = svg.children[i].getAttribute("class");
-                if (theRegion === "path.asia.selected-country") {
-                    theRegion = "asia";
-                }
-                if (theRegion === "path.europe.selected-country") {
-                    theRegion = "europe";
-                }
-                if (theRegion === "path.americas.selected-country") {
-                    theRegion = "americas";
-                }
-                if (theRegion === "path.africa.selected-country") {
-                    theRegion = "africa";
-                }
-                if (svg.children[i].id === activeCountry) {
-                    if (theRegion === "asia") {
-                        let regionFill = "#2d7aad";
-                        svg.children[i].setAttribute("class", "path." + theRegion + ".selected-country");
-                        svg.children[i].setAttribute("fill", regionFill);
-                    }
+        if(winners == "Germany FR")
+            winners = "Germany"
+        if(runnersUp == "Germany FR")
+            winners = "Germany"
+        if(third == "Germany FR")
+            winners = "Germany"
+        selectedCountry = this.ABVRToNameDict[selectedCountry];
+        let countries = d3.selectAll('.country');
+        countries.attr("class", d => {
+            let country = that.ABVRToNameDict[d.id];
+            let classString = "country"
+            if (country == host)
+                classString = classString + " host";
+            if (country == selectedCountry)
+                classString = classString + " selected-country";
+            else if(country == winners)
+                classString = classString + " winner"
+            else if(country == runnersUp)
+                classString = classString + " runners-up"
+            else if(country == third)
+                classString = classString + " third"
+            else
+                classString = classString;
 
-                    else if (theRegion === "africa") {
-                        let regionFill = "#cc9a04";
-                        svg.children[i].setAttribute("class", "path." + theRegion + ".selected-country");
-                        svg.children[i].setAttribute("fill", regionFill);
-                    }
+            return classString;
+        })
 
-                    else if (theRegion === "americas") {
-                        let regionFill = "#aaba18";
-                        svg.children[i].setAttribute("class", "path." + theRegion + ".selected-country");
-                        svg.children[i].setAttribute("fill", regionFill);
-                    }
-
-                    else if (theRegion === "europe") {
-                        let regionFill = "#7c0238";
-                        svg.children[i].setAttribute("class", "path." + theRegion + ".selected-country");
-                        svg.children[i].setAttribute("fill", regionFill);
-                    }
-                }
-                else {
-                    svg.children[i].setAttribute("class", theRegion);
-                }
-            }
-        }
-
-        // else {
-        //     this.clearHighlight();
-        // }
-    }
-
-    /**
-     * Highlights the selected conutry and region on mouse click
-     * @param activeCountry the country ID of the country to be rendered as selected/highlighted
-     */
-    updateHighlightClick(activeCountry) {
-
-        if (activeCountry !== null) {
+        // for (let i = 0; i < svg.children.length; i++) {
+        //     let countryName = svg.children[i].getAttribute("id");
+        //     if(countryName == null)
+        //         continue;
+        //     let classString = "country";
+        //     if (countryName == host)
+        //         classString = classString + " host";
             
-            let svg = document.getElementById("map-chart-svg");
+        //     svg.children[i].setAttribute("class", classString);
 
-            for (let i = 0; i < svg.children.length; i++) {
-                let theRegion = svg.children[i].getAttribute("class");
-                if (theRegion === "path.asia.selected-country") {
-                    theRegion = "asia";
-                }
-                if (theRegion === "path.europe.selected-country") {
-                    theRegion = "europe";
-                }
-                if (theRegion === "path.americas.selected-country") {
-                    theRegion = "americas";
-                }
-                if (theRegion === "path.africa.selected-country") {
-                    theRegion = "africa";
-                }
-                if (svg.children[i].id === activeCountry) {
-                    if (theRegion === "asia") {
-                        let regionFill = "#2d7aad";
-                        svg.children[i].setAttribute("class", "path." + theRegion + ".selected-country");
-                        svg.children[i].setAttribute("fill", regionFill);
-                    }
-
-                    else if (theRegion === "africa") {
-                        let regionFill = "#cc9a04";
-                        svg.children[i].setAttribute("class", "path." + theRegion + ".selected-country");
-                        svg.children[i].setAttribute("fill", regionFill);
-                    }
-
-                    else if (theRegion === "americas") {
-                        let regionFill = "#aaba18";
-                        svg.children[i].setAttribute("class", "path." + theRegion + ".selected-country");
-                        svg.children[i].setAttribute("fill", regionFill);
-                    }
-
-                    else if (theRegion === "europe") {
-                        let regionFill = "#7c0238";
-                        svg.children[i].setAttribute("class", "path." + theRegion + ".selected-country");
-                        svg.children[i].setAttribute("fill", regionFill);
-                    }
-                }
-                else {
-                    svg.children[i].setAttribute("class", theRegion);
-                }
-            }
-        }
+        // }
 
         // else {
         //     this.clearHighlight();
         // }
-       
     }
 
     /**

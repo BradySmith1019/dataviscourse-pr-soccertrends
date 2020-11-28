@@ -32,7 +32,7 @@ class InfoBox {
      * @param activeCountry the IDs for the active country
      * @param activeYear the year to render the data for
      */
-    updateTextDescription(activeCountry, beginningYear) {
+    async updateTextDescription(activeCountry, beginningYear) {
 
         let that = this;
         //this.clearHighlight();

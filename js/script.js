@@ -16,28 +16,24 @@ loadData().then(data => {
     bracket.drawBracket(activeYear);
 
     function updateCountry(countryID) {
-        this.activeCountry = countryID;
-        worldMap.updateHighlightClick(this.activeCountry);
-        infoBox.updateTextDescription(this.activeCountry, that.activeYear, that.activeYear);
-        topRight.updateSelectedCountry(this.activeCountry);
+        that.activeCountry = countryID;
+        infoBox.updateTextDescription(that.activeCountry, that.activeYear, that.activeYear);
+        topRight.updateSelectedCountry(that.activeCountry);
+        worldMap.highlightCountries(that.activeCountry, that.activeYear);
     }
 
     function updateYear(year) {
-
-        this.activeYear = year;
-        topRight.updateSelectedWorldCup(this.activeYear);
-        bracket.drawBracket(this.activeYear);
-        infoBox.updateTextDescription(this.activeCountry, this.activeYear);
+        that.activeYear = year;
+        topRight.updateSelectedWorldCup(that.activeYear);
+        bracket.drawBracket(that.activeYear);
+        infoBox.updateTextDescription(that.activeCountry, that.activeYear);
+        worldMap.highlightCountries(that.activeCountry, that.activeYear);
     }
 
     d3.json('data/world.json').then(mapData => {
         worldMap.drawMap(mapData, that.activeYear);
-        worldMap.updateHighlightClick(that.activeCountry);
+        worldMap.highlightCountries(that.activeCountry, that.activeYear);
     });
-
-    document.addEventListener("click", function (e) {
-        updateCountry(null);
-    }, true);
 });
 
 async function loadFile(file) {

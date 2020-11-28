@@ -37,17 +37,7 @@ class Table {
             {
                 sorted: false,
                 ascending: false,
-                key: 'Fourth'
-            },
-            {
-                sorted: false,
-                ascending: false,
                 key: 'QualifiedCountries'
-            },
-            {
-                sorted: false,
-                ascending: false,
-                key: 'MatchesPlayed'
             },
             {
                 sorted: false,
@@ -63,18 +53,155 @@ class Table {
 
         // Sets up the width and height of a single vizualization in the table
         this.vizWidth = 150;
-        this.vizHeight = 30;
+        this.vizHeight = 20;
+
+        this.scaleGoals = d3.scaleLinear()
+                            .domain([-.4, 6.4])
+                            .range([0, this.vizWidth]);
+
+        this.scaleAttendence = d3.scaleLinear()
+                                 .domain([-5000, 80000])
+                                 .range([0, this.vizWidth]);
 
         d3.select("#table").classed("midleft-grid", true);
         this.attachSortHandlers();
+        this.drawLegend();
         this.drawTable();
     }
+
+    /** Draw the legend for the table (the first row) */
+    drawLegend() {
+        let svg = d3.select('#goalsAxis');
+        svg.attr("width", this.vizWidth)
+            .attr("height", 20);
+        
+        svg.append('line')
+            .attr("x1", this.scaleGoals(0))
+            .attr("y1", 12)
+            .attr("x2", this.scaleGoals(0))
+            .attr("y2", 20)
+            .attr("class", "table-legend-line");
+        
+        svg.append('text')
+            .attr("x", this.scaleGoals(0))
+            .attr("y", 10)
+            .attr('class', 'label')
+            .text("0.0");
+        
+        svg.append('line')
+            .attr("x1", this.scaleGoals(1.5))
+            .attr("y1", 12)
+            .attr("x2", this.scaleGoals(1.5))
+            .attr("y2", 20)
+            .attr("class", "table-legend-line");
+        
+        svg.append('text')
+            .attr("x", this.scaleGoals(1.5))
+            .attr("y", 10)
+            .attr('class', 'label')
+            .text("1.5");
+        
+        svg.append('line')
+            .attr("x1", this.scaleGoals(3))
+            .attr("y1", 12)
+            .attr("x2", this.scaleGoals(3))
+            .attr("y2", 20)
+            .attr("class", "table-legend-line");
+        
+        svg.append('text')
+            .attr("x", this.scaleGoals(3))
+            .attr("y", 10)
+            .attr('class', 'label')
+            .text("3.0");
+
+        svg.append('line')
+            .attr("x1", this.scaleGoals(4.5))
+            .attr("y1", 12)
+            .attr("x2", this.scaleGoals(4.5))
+            .attr("y2", 20)
+            .attr("class", "table-legend-line");
+        
+        svg.append('text')
+            .attr("x", this.scaleGoals(4.5))
+            .attr("y", 10)
+            .attr('class', 'label')
+            .text("4.5");
+        
+        svg.append('line')
+            .attr("x1", this.scaleGoals(6))
+            .attr("y1", 12)
+            .attr("x2", this.scaleGoals(6))
+            .attr("y2", 20)
+            .attr("class", "table-legend-line");
+        
+        svg.append('text')
+            .attr("x", this.scaleGoals(6))
+            .attr("y", 10)
+            .attr('class', 'label')
+            .text("6.0");
+        
+        svg = d3.select('#attendenceAxis');
+            svg.attr("width", this.vizWidth)
+                .attr("height", 20);
+
+        svg.append('line')
+            .attr("x1", this.scaleAttendence(0))
+            .attr("y1", 12)
+            .attr("x2", this.scaleAttendence(0))
+            .attr("y2", 20)
+            .attr("class", "table-legend-line");
+        
+        svg.append('text')
+            .attr("x", this.scaleAttendence(0))
+            .attr("y", 10)
+            .attr('class', 'label')
+            .text("0k");
+
+        svg.append('line')
+            .attr("x1", this.scaleAttendence(25000))
+            .attr("y1", 12)
+            .attr("x2", this.scaleAttendence(25000))
+            .attr("y2", 20)
+            .attr("class", "table-legend-line");
+        
+        svg.append('text')
+            .attr("x", this.scaleAttendence(25000))
+            .attr("y", 10)
+            .attr('class', 'label')
+            .text("25k");
+
+        svg.append('line')
+            .attr("x1", this.scaleAttendence(50000))
+            .attr("y1", 12)
+            .attr("x2", this.scaleAttendence(50000))
+            .attr("y2", 20)
+            .attr("class", "table-legend-line");
+        
+        svg.append('text')
+            .attr("x", this.scaleAttendence(50000))
+            .attr("y", 10)
+            .attr('class', 'label')
+            .text("50k");
+
+        svg.append('line')
+            .attr("x1", this.scaleAttendence(75000))
+            .attr("y1", 12)
+            .attr("x2", this.scaleAttendence(75000))
+            .attr("y2", 20)
+            .attr("class", "table-legend-line");
+        
+        svg.append('text')
+            .attr("x", this.scaleAttendence(75000))
+            .attr("y", 10)
+            .attr('class', 'label')
+            .text("75k");                   
+    }    
 
     // Draw the table using all available data
     drawTable() {
         console.log(this.tableData);
         this.updateHeaders();
-        let rowSelection = d3.select('#predictionTableBody')
+        let rowSelection = d3.select('#tableBody')
             .selectAll('tr')
             .data(this.tableData)
             .join('tr');
@@ -92,7 +219,26 @@ class Table {
                                 .attr("class", "table-text");
 
 
-        let freqVizSelection = forecastSelection.filter(d => d.type === 'frequency viz');
+        let goalsVizSelection = forecastSelection.filter(d => d.type === 'goals viz');
+
+        let svgSelect = goalsVizSelection.selectAll('svg')
+            .data(d => [d])
+            .join('svg')
+            .attr('width', this.vizWidth)
+            .attr('height', this.vizHeight);
+
+        this.addGoalsRectangles(svgSelect);
+        
+
+        let attendenceVizSelection = forecastSelection.filter(d => d.type === 'attendence viz');
+
+        svgSelect = attendenceVizSelection.selectAll('svg')
+                .data(d => [d])
+                .join('svg')
+                .attr('width', this.vizWidth)
+                .attr('height', this.vizHeight);
+
+        this.addAttendenceRectangles(svgSelect);
    }
 
     /** Convert the data into separte data for each cell column */
@@ -121,33 +267,52 @@ class Table {
             type: 'text',
             value: d.Third,
         };
-        let fourthInfo = {
-            type: 'text',
-            value: d.Fourth,
-        };
 
         let qualifiedCountriesInfo = {
             type: 'text',
             value: d.QualifiedCountries,
         };
 
-        let matchesPlayedInfo = {
-            type: 'text',
-            value: d.MatchesPlayed,
-        };
-
         let goalsPerGameInfo = {
-            type: 'text',
+            type: 'goals viz',
             value: d.GoalsPerGame,
         };
 
         let attendencePerGameInfo = {
-            type: 'text',
+            type: 'attendence viz',
             value: d.AttendancePerGame,
         };
 
-        let dataList = [yearInfo, hostInfo, winnerInfo, runnersUpInfo, thirdInfo, fourthInfo, qualifiedCountriesInfo, matchesPlayedInfo, goalsPerGameInfo, attendencePerGameInfo];
+        let dataList = [yearInfo, hostInfo, winnerInfo, runnersUpInfo, thirdInfo, qualifiedCountriesInfo, goalsPerGameInfo, attendencePerGameInfo];
         return dataList;
+    }
+
+    addGoalsRectangles(containerSelect) {
+
+        containerSelect.selectAll("rect").remove();
+
+        containerSelect.append("rect")
+                        .attr("x", d => { 
+                            return this.scaleGoals(0);})
+                        .attr("y", 2.5)
+                        .attr("width", d => {
+                                return this.scaleGoals(d.value) - this.scaleGoals(0);})
+                        .attr("height", 25)
+                        .attr("class", "goals table-rect");                
+    }
+
+    addAttendenceRectangles(containerSelect) {
+
+        containerSelect.selectAll("rect").remove();
+
+        containerSelect.append("rect")
+                        .attr("x", d => { 
+                            return this.scaleAttendence(0);})
+                        .attr("y", 2.5)
+                        .attr("width", d => {
+                                return this.scaleAttendence(d.value) - this.scaleAttendence(0);})
+                        .attr("height", 15)
+                        .attr("class", "attendence table-rect");                
     }
 
     /** Update the column headers based on the sort state */
@@ -339,33 +504,6 @@ class Table {
             }
         }
 
-        else if(d.key === "Fourth"){
-            if(!d.ascending){
-                this.tableData.sort((a,b) =>
-                {
-                    if (a.Fourth < b.Fourth)
-                        return 1;
-                    
-                    else if (a.Fourth > b.Fourth)
-                        return -1;
-                    
-                    return 0;
-                })
-            }
-            else{
-                this.tableData.sort((a,b) =>
-                {
-                    if (a.Fourth < b.Fourth)
-                        return -1;
-                    
-                    else if (a.Fourth > b.Fourth)
-                        return 1;
-                    
-                    return 0;
-                })
-            }
-        }
-
         else if(d.key === "QualifiedCountries"){
             if(!d.ascending){
                 this.tableData.sort((a,b) =>
@@ -381,25 +519,6 @@ class Table {
                     if(a.QualifiedCountries - b.QualifiedCountries == 0)
                         return a.Year - b.Year;
                     return a.QualifiedCountries - b.QualifiedCountries;
-                })
-            }
-        }
-
-        else if(d.key === "MatchesPlayed"){
-            if(!d.ascending){
-                this.tableData.sort((a,b) =>
-                {
-                    if(b.MatchesPlayed - a.MatchesPlayed == 0)
-                        return b.Year - a.Year;
-                    return b.MatchesPlayed - a.MatchesPlayed;
-                })
-            }
-            else{
-                this.tableData.sort((a,b) =>
-                {
-                    if(a.MatchesPlayed - b.MatchesPlayed == 0)
-                        return a.Year - b.Year;
-                    return a.MatchesPlayed - b.MatchesPlayed;
                 })
             }
         }
