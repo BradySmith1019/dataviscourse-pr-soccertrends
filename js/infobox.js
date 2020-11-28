@@ -80,14 +80,14 @@ class InfoBox {
             infoApp.append("h2").text("Country: " + infoDatas[0].country).attr("id", "Country-Name");
 
             if (selectedCountry.length === 0) {
-                infoApp.append("h4").text(beginningYear +  " World Cup Record " + " (W-L-D): N/A" );
+                infoApp.append("h4").text("Overall World Cup Record " + " (W-L-D): N/A" );
                 infoApp.append("h4").text("Highest Finish: N/A");
                 infoApp.append("h4").text("Average Goals per Game: N/A");
                 infoApp.append("h4").text("Average Goals Conceded per Game: N/A");
                 infoApp.append("h4").text("Total World Cups Won: N/A");
             }
             else {
-                infoApp.append("h4").text(beginningYear +  " World Cup Record " + " (W-L-D): " + selectedCountry[0]["AllTimeRecord"]);
+                infoApp.append("h4").text("Overall World Cup Record " + " (W-L-D): " + selectedCountry[0]["AllTimeRecord"]);
                 infoApp.append("h4").text("Highest Finish: " + selectedCountry[0]["HighestEverFinish"]);
                 infoApp.append("h4").text("Average Goals per Game: " + parseFloat(selectedCountry[0]["GoalsPerGame"]).toFixed(2));
                 infoApp.append("h4").text("Average Goals Conceded per Game: " + parseFloat(selectedCountry[0]["GoalsConcededPerGame"]).toFixed(2));
