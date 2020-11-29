@@ -10,8 +10,8 @@
 .view {
     width: 750px;
     /*margin: auto;*/
-    padding: 5px;
-    display: inline-block;
+    /*padding: 5px;
+    display: inline-block;*/
     float: left;
 }
 
@@ -28,12 +28,13 @@
 }
 
 #country-detail {
-    display: inline-block;
+    display: block;
     width: 750px;
     height: 100px;
     margin: auto;
     position: relative;
     padding-left: 30px;
+    padding-top: 0;
 }
 
 #country-detail .stat {
@@ -176,14 +177,16 @@ Grid Container
 
 .grid-container {
     display: inline-grid;
+    grid-template-rows: auto 650px auto;
+    grid-template-columns: auto 80px;
     grid-template-areas: 
     'topleft topleft topleft topright topright topright'
     'midleft midleft midleft midright midright midright'
     'bottomleft bottomright bottomright bottomright bottomright bottomright';
     background-color: white;
-    padding: 10px;
+    padding: 1px;
     position: relative;
-    top: 50px;
+    top: 5px;
 }
 
 .topleft-grid {

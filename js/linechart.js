@@ -24,7 +24,7 @@ class LineChart {
         // Scale for the y-axis
         let aScale = d3
         .scaleBand()
-        .domain(["Winners", "Final Group", "Runners-Up", "Third Place", "Semifinalists", "Quarterfinalists", "Round of 16", "Group Stage", "Did Not Qualify"])//that.data["countries"].map(d => d.placement))
+        .domain(["Winners", "Runners-Up", "Third Place", "Semifinalists", "Quarterfinalists", "Round of 16", "Group Stage", "Did Not Qualify"])//that.data["countries"].map(d => d.placement))
         .rangeRound([0, 400]);
 
         // Scale for the x-axis

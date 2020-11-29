@@ -34,7 +34,8 @@ class InfoBox {
 
             // Adds the info box to the bottom left of the css grid layout
             let infoApp = d3.select("#infobox").classed("bottomleft-grid", true).append("div").attr("class", "country-detail")
-            .classed("bottomleft-grid", true).attr("id", "infoboxdiv").attr("transform", "translate(0, -500)");
+            .attr("transform", "translate(0, 500)")
+            .classed("bottomleft-grid", true).attr("id", "infoboxdiv");
 
             // Adds the country name text
             infoApp.append("h2").text("Country: " + goodName[0]["country"]).attr("id", "Country-Name");
