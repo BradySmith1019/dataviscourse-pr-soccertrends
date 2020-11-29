@@ -1,4 +1,4 @@
-/** Class representing the highlighting and selection interactivity. */
+/** Class representing the visualization infobox. */
 class InfoBox {
     /**
      * Creates a InfoBox Object
@@ -57,17 +57,13 @@ class InfoBox {
                 infoApp.append("h4").text("Average Goals Conceded per Game: " + parseFloat(selectedCountry[0]["GoalsConcededPerGame"]).toFixed(2));
                 infoApp.append("h4").text("Total World Cups Won: " + selectedCountry[0]["WorldCupWins"]);
             }
-
         }
-
     }
 
     /**
      * Removes or makes invisible the info box
      */
     clearHighlight() {
-
         d3.select("#infoboxdiv").remove();
     }
-
 }

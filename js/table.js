@@ -2,9 +2,9 @@
 class Table {
     /**
      * Creates a Table Object
+     * @param Data - The full data array which contains the data stored in the table
      */
     constructor(Data) {
-        console.log("in constructor");
         this.tableData = Data.map(d => d);
 
         // Create the header data
@@ -55,6 +55,7 @@ class Table {
         this.vizWidth = 150;
         this.vizHeight = 20;
 
+        // Scaling function used to set the scale for the bars in the table
         this.scaleGoals = d3.scaleLinear()
                             .domain([-.4, 6.4])
                             .range([0, this.vizWidth]);
@@ -63,6 +64,7 @@ class Table {
                                  .domain([-5000, 80000])
                                  .range([0, this.vizWidth]);
 
+        // Draw the table
         d3.select("#table").classed("midleft-grid", true);
         this.attachSortHandlers();
         this.drawLegend();
@@ -199,7 +201,6 @@ class Table {
 
     // Draw the table using all available data
     drawTable() {
-        console.log(this.tableData);
         this.updateHeaders();
         let rowSelection = d3.select('#tableBody')
             .selectAll('tr')
@@ -287,6 +288,10 @@ class Table {
         return dataList;
     }
 
+    /**
+     * Method that draws all of the bars in the Goals Per Game column
+     * @param containerSelect - The container to draw the bars in
+     */
     addGoalsRectangles(containerSelect) {
 
         containerSelect.selectAll("rect").remove();
@@ -301,6 +306,10 @@ class Table {
                         .attr("class", "goals table-rect");                
     }
 
+    /**
+     * Method that draws all of the bars in the Attendance Per Game column
+     * @param containerSelect - The container to draw the bars in
+     */
     addAttendenceRectangles(containerSelect) {
 
         containerSelect.selectAll("rect").remove();

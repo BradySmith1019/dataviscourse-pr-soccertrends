@@ -1,10 +1,22 @@
+/** Class representing the visualization selected country line chart. */
 class LineChart {
+
+     /**
+     * Creates a InfoBox Object
+     * @param data the full data array
+     * @param activeCountry the currently selected country
+     */
     constructor(data, activeCountry) {
         this.data = data;
         this.activeCountry = activeCountry;
-        this.drawChart("FRA");
+        this.drawChart(activeCountry);
     }
 
+    /**
+     * Draws the line chart plotting the countries finished at every 
+     * previous world cup.
+     * @param activeCountry the currently selected active country 
+     */
     drawChart(activeCountry) {
         this.activeCountry = activeCountry;
         let that = this;
@@ -99,7 +111,6 @@ class LineChart {
                     .append("path")
                     .attr("class", "line-chart-x")
                     .attr("d", function(d) {
-                        console.log(d);
                         for (let i = 0; i < ranger.length; i++) {
                             let newer = {"Year": ranger[i][0], "Placement": ranger[i][1]};
                             newArr.push(newer);

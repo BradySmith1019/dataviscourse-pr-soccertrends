@@ -40,6 +40,10 @@ class Map {
         this.cupData = data.cups;
     }
 
+    /**
+     * Method that creates a dictionary that converts a countrys three character
+     * abbreviation to its full name.
+     */
     CreateABRRToNameDict(){
         let dict = {};
         dict["ABW"] = "Aruba";
@@ -404,22 +408,35 @@ class Map {
         .datum(go).attr("class", "stroke").attr("d", path);
     }
 
+    /**
+     * Classes the selected country as well as the winning, runners-up, third, 
+     * place and host country for the selected year to give them the correct
+     * visual encoding on the map
+     * @param selectedCountry  - The country currently selected
+     * @param selectedYear - The world cup year currently selected
+     */
     async highlightCountries(selectedCountry, selectedYear) {
         let that = this;
+
+        // Gather the selected world cup data
         let yearData = this.cupData.filter(d => d.Year == selectedYear);
         let host = yearData[0].Host;
         let winners = yearData[0].Winner;
         let runnersUp = yearData[0].RunnersUp;
         let third = yearData[0].Third;
 
+        // Consider Germany FR to be the same as Germany
         if(winners == "Germany FR")
             winners = "Germany"
         if(runnersUp == "Germany FR")
             winners = "Germany"
         if(third == "Germany FR")
             winners = "Germany"
+
         selectedCountry = this.ABVRToNameDict[selectedCountry];
         let countries = d3.selectAll('.country');
+
+        // Class the countries appropriately
         countries.attr("class", d => {
             let country = that.ABVRToNameDict[d.id];
             let classString = "country"
@@ -438,51 +455,5 @@ class Map {
 
             return classString;
         })
-
-        // for (let i = 0; i < svg.children.length; i++) {
-        //     let countryName = svg.children[i].getAttribute("id");
-        //     if(countryName == null)
-        //         continue;
-        //     let classString = "country";
-        //     if (countryName == host)
-        //         classString = classString + " host";
-            
-        //     svg.children[i].setAttribute("class", classString);
-
-        // }
-
-        // else {
-        //     this.clearHighlight();
-        // }
     }
-
-    /**
-     * Clears all highlights
-     */
-    clearHighlight() {
-
-        let svg = document.getElementById("map-chart-svg");
-
-        for (let i = 0; i < svg.children.length; i++) {
-            let theRegion = svg.children[i].getAttribute("class");
-            if (theRegion === "path.asia.selected-country") {
-                theRegion = "asia";
-            }
-            if (theRegion === "path.europe.selected-country") {
-                theRegion = "europe";
-            }
-            if (theRegion === "path.americas.selected-country") {
-                theRegion = "americas";
-            }
-            if (theRegion === "path.africa.selected-country") {
-                theRegion = "africa";
-            }
-
-            svg.children[i].setAttribute("class", theRegion);
-
-
-        }
-
-    }
-
 }

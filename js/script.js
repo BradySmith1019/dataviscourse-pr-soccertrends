@@ -41,6 +41,10 @@ loadData().then(data => {
     });
 });
 
+/**
+ * Loads the provided file treating it as a csv file
+ * @param file - the provided file 
+ */
 async function loadFile(file) {
     let data = await d3.csv(file).then(d => {
         let mapped = d.map(g => {
@@ -57,6 +61,9 @@ async function loadFile(file) {
     return data;
 }
 
+/**
+ * Loads the data required by the visualization
+ */
 async function loadData() {
     let pop = await loadFile('data/pop.csv');
     let matches = await loadFile('data/WorldCupMatches.csv');

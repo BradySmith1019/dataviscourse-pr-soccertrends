@@ -1,4 +1,17 @@
+/** 
+ * Class implementing the top right part of the visualization. 
+ * This contains the currently selected country and world cup text.
+ * Contains instructions for how to select a country and world cup
+ * Also contains the year slider
+ */
 class TopRight {
+
+    /**
+     * Constructor to create a top right object
+     * @param data - The data used for the visualization
+     * @param activeYear - The currently selected year 
+     * @param updateYear - The year to update to
+     */
     constructor(data, activeYear, updateYear) {
         this.data = data;
         this.activeCountry = "FRA";
@@ -11,6 +24,10 @@ class TopRight {
         this.drawYearSlider();
     }
 
+    /**
+     * Methods that updates the currently selected country text
+     * @param activeCountry - The currently selected country
+     */
     async updateSelectedCountry(activeCountry) {
         if (activeCountry !== null) {
             this.activeCountry = activeCountry;
@@ -35,6 +52,10 @@ class TopRight {
         }
     }
 
+    /**
+     * Methods that updates the currently selected world cup text
+     * @param activeCountry - The currently selected world cup year
+     */
     async updateSelectedWorldCup(newActiveYear) {
         this.activeYear = newActiveYear;
         if (this.activeYear !== null) {
@@ -60,6 +81,9 @@ class TopRight {
         }
     }
 
+    /**
+     * Method to draw the year slider
+     */
     async drawYearSlider() {
         d3.select("#selected").classed("topright-grid", true).append("div").attr("id", "year-slider").attr("class", "view");
         d3.select("#year-slider").append("svg");
@@ -86,8 +110,8 @@ class TopRight {
         sliderText.attr('x', yearScale(19));
         sliderText.attr('y', 25);
 
+        // Update the year when dragged and the text that shows the slider value
         yearSlider.on('input', function (d, i) {
-
             let sliderText = sliderLabel.selectAll("text").text(that.worldCupArray[this.value]);
             sliderText.attr('x', yearScale(this.value));
             sliderText.attr('y', 25);
@@ -95,11 +119,13 @@ class TopRight {
         });
     }
 
+    /**
+     * Method to write the instruction of how to select a world cup and country
+     */
     async drawInstructions() {
         let selected = d3.select("#selected").classed("topright-grid", true);
 
         selected.append("h3").text("To select a country, click it on the map.");
         selected.append("h3").text("To select a World Cup, use the year slider.");
-
     }
 }
