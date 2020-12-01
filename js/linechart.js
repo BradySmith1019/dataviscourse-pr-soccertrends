@@ -82,6 +82,10 @@ class LineChart {
 
         // Populates the x-axis
         d3.select("#bottom-axis").attr("transform", "translate(70, 450)").call(bottomAxis);
+
+        if (selectedCountry.length === 0) {
+            return;
+        }
         
         // Finds the indices of all the world cups in the given data to be used in creating the line
         let beginFinish = 1930 + "Finish";
