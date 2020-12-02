@@ -3,6 +3,7 @@
 This is a github project for a visualization displaying world cup data.
 
 URL to our visualization website: 
+
 URL to our visualization demonstration video:
 
 Overall, we feel like our visualization is pretty straight forward and easy to use. The only thing that may not
