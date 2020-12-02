@@ -28,10 +28,67 @@ Syntax highlighted code block
 
 For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/BradySmith1019/dataviscourse-pr-soccertrends/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The World's Game</title>
+    <link rel="stylesheet" href="styles.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.js"></script>
+    <script src="js/map.js" async></script>
+    <script src="js/infobox.js" async></script>
+    <script src="js/linechart.js" async></script>
+    <script src="js/table.js" async></script>
+    <script src="js/topright.js" async></script>
+    <script src="js/bracket.js" async></script>
+    <script src="js/script.js" async></script>
+</head>
+<body>
+    <div class="header">
+        <h1>The World's Game</h1>
+        <p class="info">World Cup Soccer Statistics by Michael Linnebach and Brady Smith</p>
+    </div>
+    <div class="wrapper">
+        <div id="body-wrap" class="inner-wrapper">
+            <div id="map-chart" class="view"></div>
+            <div id="selected" class="view"></div>
+            <div id="table" class="table">
+                <table class="table">
+                    <thead class=table-header>
+                    <tr id="columnHeaders">
+                        <th class="sortable">Year<i class="fas no-display"></i></th>
+                        <th class="sortable">Host<i class="fas no-display"></i></th>
+                        <th class="sortable">Champions<i class="fas no-display"></i></th>
+                        <th class="sortable">Runner Up<i class="fas no-display"></i></th>
+                        <th class="sortable">Third Place<i class="fas no-display"></i></th>
+                        <th class="sortable">Countries Qualified<i class="fas no-display"></i></th>
+                        <th class="sortable">Goals Per Game<i class="fas no-display"></i></th>
+                        <th class="sortable">Attendance Per Game<i class="fas no-display"></i></th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><svg id="goalsAxis"></svg></td>
+                        <td><svg id="attendenceAxis"></svg></td>
+                    </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                    </tbody>
+                </table>
+            </div>
+            <div id="bracket">
+                <svg id="bracket-svg"></svg>
+            </div>
+            <div id="infobox" class="view"></div>
+            <div id="line-chart" class="view"></div>
+        </div>
+    </div>
+</body>
+</html>
