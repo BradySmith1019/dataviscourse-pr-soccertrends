@@ -9,7 +9,8 @@ URL to our visualization demonstration video:
 Overall, we feel like our visualization is pretty straight forward and easy to use. The only thing that may not
 be clear right off is that when you first load the visualization it is a fairly large visualizaion and therefore
 if you do not scroll down you may miss the selected country infobox and the selected country line chart. If you
-would like more specifics about the visualizaiton please read the visualization description below.
+would like more specifics about the visualizaiton please read the visualization description below then the 
+repository description below this explains what each part of the repository is doing.
 
 Visualization Description:
 
@@ -48,3 +49,30 @@ Then, the last part of the visualization is to the right of the currently select
 right. This is the line chart which plots how the currently selected country has performed at every world cup thorughout history. Every
 finsih from did not qualify to winners is plotted and it can help you see which countries were dominant in the past but not now and which
 countries are on the rise in terms of world cup finshes.
+
+Repository Description:
+
+The .vs code folder contians basic information used to run the code in visual studio code which is what we were designing it in.
+
+The Data Compilation Code - C# file contians a C# method that was used to take the match data and transform it into the country data for
+our visualization.
+
+The data folder contains all data used for our visualization this is what the javascript files read in order to determine how to display the
+visualization. It contains a json file that was used to draw the world map and also contains multiple csv files which hold the general world
+cup data, match data, and the data for a specific countries at the world cup.
+
+The js folder contains our javascript code that actually renders the visualization. The script.js folder is the one that is ran upon startup
+and it constructs and updates all of the views when necessary. Then, all other js files are used to specifically compose one specific part of 
+the visualization and are named based on what they are rendering in the visualization.
+
+The Process Book.docx file contains our process book this describes our project from beginning to end documenting how our work on the
+visualization proceeded.
+
+The debug.log file can be ignored this is pushed when committing from Visual Studio code and contains no information important to the project
+
+The index.html file sets up the basic HTML layout of the code and also constructs the code so that it calls the necessary javascript files in 
+the js folder to compose the entire visualization. This is the file that actually gets called upon to display the visualization on the webpage.
+
+styles.css 
+Contians basic styling information used for displaying the visualization. It contains a wide array of classes that are used to properly display
+the visualization.
