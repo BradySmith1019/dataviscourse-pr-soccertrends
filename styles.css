@@ -1,0 +1,384 @@
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+.wrapper {
+    width: 1600px;
+    margin: auto;
+}
+
+.view {
+    width: 750px;
+    /*margin: auto;*/
+    /*padding: 5px;
+    display: inline-block;*/
+    float: left;
+}
+
+.header {
+    width: 600px;
+    margin: auto;
+    text-align: center;
+}
+
+.innerWrapper {
+    width: 790px;
+    display: inline-block;
+    float: left;
+}
+
+#country-detail {
+    display: block;
+    width: 750px;
+    height: 100px;
+    margin: auto;
+    position: relative;
+    padding-left: 30px;
+    padding-top: 0;
+}
+
+#country-detail .stat {
+    font-style: bold;
+    display: block;
+    width: 500px;
+}
+
+#country-detail .stats span {
+    font-weight: bold;
+}
+
+#country-detail div.label {
+    font-size: 26px;
+    display: block;
+    width: 100%;
+    padding-top: 10px;
+}
+
+#country-detail div.label span {
+    font-size: 22px;
+    padding-bottom: 15px;
+    font-weight: bold;
+}
+
+#map-chart {
+    height: 450px;
+}
+
+#map-chart svg {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+#map-chart svg {
+    margin: auto;
+}
+
+.countries {
+    fill: #a8a8a8;
+    stroke: #fff;
+    stroke-width: .3px;
+}
+
+.boundary {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 3px;
+}
+
+.stroke {
+    fill: none;
+    stroke: #000;
+    stroke-width: 2px;
+}
+
+.fill {
+    fill: #fff;
+    pointer-events: none;
+}
+
+.graticule {
+    fill: none;
+    stroke: #777;
+    stroke-width: .5px;
+    stroke-opacity: .2;
+    pointer-events: none;
+}
+
+.africa {
+    fill: #a8a8a8;
+    stroke: #fff;
+    stroke-width: .3px;
+}
+
+path.africa.selected-country,
+circle.africa.selected-country {
+    fill: #cc9a04;
+    /* stroke: #000000;*/
+}
+
+.country {
+    fill: #ececec;
+    stroke: #fff;
+    stroke-width: .3px;
+}
+
+path.asia.selected-country,
+circle.asia.selected-country {
+    fill: #2d7aad;
+    /*  stroke-width: 1px;*/
+    /* stroke: #000000;*/
+}
+
+.americas {
+    fill: #a8a8a8;
+    stroke: #fff;
+    stroke-width: .3px;
+}
+
+path.americas.selected-country,
+circle.americas.selected-country {
+    fill: #aaba18;
+    /*  stroke-width: 1px;*/
+    /* stroke: #000000;*/
+}
+
+.europe {
+    fill: #a8a8a8;
+    stroke: #fff;
+    stroke-width: .3px;
+}
+
+path.europe.selected-country,
+circle.europe.selected-country {
+    fill: #7c0238;
+    /*  stroke-width: 1px;*/
+    /* stroke: #000000;*/
+}
+
+#country-detail {
+    display: inline-block;
+    width: 400px;
+    height: 100px;
+    margin: auto;
+    position: relative;
+    padding-left: 30px;
+}
+
+.line-chart-x {
+    stroke: rgb(101, 32, 228);
+    stroke-width: 2px;
+    fill: none;
+}
+
+/*
+Grid Container
+*/
+
+.grid-container {
+    display: inline-grid;
+    grid-template-rows: auto 650px auto;
+    grid-template-columns: auto 80px;
+    grid-template-areas: 
+    'topleft topleft topleft topright topright topright'
+    'midleft midleft midleft midright midright midright'
+    'bottomleft bottomright bottomright bottomright bottomright bottomright';
+    background-color: white;
+    padding: 1px;
+    position: relative;
+    top: 5px;
+}
+
+.topleft-grid {
+    grid-area: topleft;
+}
+
+.topright-grid {
+    grid-area: topright;
+}
+
+.midleft-grid {
+    grid-area: midleft;
+}
+
+.midright-grid {
+    grid-area: midright;
+}
+
+.bottomleft-grid {
+    grid-area: bottomleft;
+}
+
+.bottomright-grid {
+    grid-area: bottomright;
+}
+
+/*
+ Year Slider
+*/
+
+.slider {
+    -webkit-appearance: none;
+    width: 525px;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    /*margin-left: 20px*/
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #D4E157;
+    cursor: pointer;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider-label svg {
+    width: 750px;
+    height: 35px;
+}
+
+.slider-label svg text {
+    text-anchor: middle;
+}
+
+.slider-wrap {
+    display: inline-block;
+    float: left;
+    width: 550px;
+    /*margin-left: 50px;*/
+}
+
+.table{
+    float: left;
+    width: 500px;
+}
+
+.sortable {
+    user-select: none;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 6px;
+}
+
+.sorting {
+    background: firebrick;
+    color: black;
+}
+
+.table-header {
+    text-align: center;
+    background-color: lightcoral;
+}
+
+.table-legend-line {
+    stroke: black;
+    stroke-width: 1px;
+}
+
+.label{
+    text-anchor: middle;
+    font-size: 9pt;
+    font-weight: 1000;
+}
+
+.table-text {
+    text-align: center;
+}
+
+.table-rect{
+    stroke: black;
+    stroke-width: 1px;
+}
+
+.goals{
+    fill: red;
+}
+
+.attendence{
+    fill:navy;
+}
+
+.bracket-line {
+    stroke: black;
+    stroke-width: 5px;
+}
+
+.bracket-label{
+    font-size: 11.5pt;
+    font-weight: 1000;
+}
+
+.explanation-label{
+    font-size: 14pt;
+    font-weight: 1000;
+}
+
+.winning-label{
+    font-size: 20pt;
+    font-weight: 2000;
+}
+
+.bracket-title{
+    font-size: 24pt;
+    font-weight: 1000; 
+}
+
+.left-bracket{
+    text-anchor: start;
+}
+
+.right-bracket{
+    text-anchor: end;
+}
+
+.middle-bracket{
+    text-anchor: middle;
+}
+
+.winner{
+    fill: gold;
+}
+
+.runners-up{
+    fill: rgb(161, 158, 158);
+}
+
+.third{
+    fill: #b08d57;
+}
+
+.host{
+    stroke-width: 1.5px;
+    stroke: black;
+}
+
+.host-legend{
+    stroke-width: 1.5px;
+    stroke: black;
+    fill: none;
+}
+
+.selected-country{
+    fill: magenta;
+}
+
