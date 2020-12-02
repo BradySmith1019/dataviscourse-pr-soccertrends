@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## Welcome to World Cup Soccer Trends
 
 You can use the [editor on GitHub](https://github.com/BradySmith1019/dataviscourse-pr-soccertrends/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
