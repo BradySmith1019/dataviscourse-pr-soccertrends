@@ -6,11 +6,12 @@ URL to our visualization website: https://bradysmith1019.github.io/dataviscourse
 
 URL to our visualization demonstration video: https://www.youtube.com/watch?v=F1J9iZEyzXM&feature=youtu.be
 
-Overall, we feel like our visualization is pretty straight forward and easy to use. The only thing that may not
+Overall, we feel like our visualization is pretty straight forward and easy to use. The only things that may not
 be clear right off is that when you first load the visualization it is a fairly large visualizaion and therefore
-if you do not scroll down you may miss the selected country infobox and the selected country line chart. If you
-would like more specifics about the visualizaiton please read the visualization description below then the 
-repository description below this explains what each part of the repository is doing.
+if you do not scroll down you may miss the selected country infobox and the selected country line chart. Simlarly 
+it may not be clear right away that clicking a column header will sort the table by that column. If you would like 
+more specifics about the visualizaiton please read the visualization description below then the repository 
+description below this explains what each part of the repository is doing.
 
 Visualization Description:
 
