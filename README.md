@@ -2,9 +2,9 @@
 
 This is a github project for a visualization displaying world cup data.
 
-URL to our visualization website: 
+URL to our visualization website: https://bradysmith1019.github.io/dataviscourse-pr-soccertrends/
 
-URL to our visualization demonstration video:
+URL to our visualization demonstration video: https://www.youtube.com/watch?v=F1J9iZEyzXM&feature=youtu.be
 
 Overall, we feel like our visualization is pretty straight forward and easy to use. The only thing that may not
 be clear right off is that when you first load the visualization it is a fairly large visualizaion and therefore
